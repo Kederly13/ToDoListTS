@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "scenes/*": ["./pages/*"]
+    },
     "target": "es5",
     "lib": [
       "dom",

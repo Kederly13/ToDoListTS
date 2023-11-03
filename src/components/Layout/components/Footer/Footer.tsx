@@ -1,6 +1,6 @@
 import { Logo } from '../../../Logo';
 
-import classes from './footer.module.scss';
+import classes from './footer.module.sass';
 
 export const Footer = () => (
     <footer className={classes.footer}>

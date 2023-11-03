@@ -1,6 +1,6 @@
-import { Logo } from '../../../Logo';
+import { Logo } from 'components/Logo';
 
-import classes from './header.module.scss';
+import classes from './header.module.sass';
 
 export const Header = () => (
     <header className={classes.header}>

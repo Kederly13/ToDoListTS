@@ -1,5 +1,6 @@
 import { SearchForm } from './components/SearchForm';
-import { Filter } from './components/Buttons/FilterButton';
+import { SortButton } from './components/Buttons/SortButton';
+import { useEffect, useState } from 'react';
 
 import classes from './main.module.sass';
 
@@ -7,7 +8,7 @@ export const Main = () => (
     <section className={classes.main}>
         <div className={classes.container}>
             <SearchForm />
-            <Filter/>
+            <SortButton />
         </div>
     </section>
 );

@@ -16,8 +16,13 @@ interface ITodo {
     subTasks: string[];
 }
 
+interface IFilterMenu {
+
+}
+
 type TodoContextType = {
     todos: ITodo[];
+
     // saveTodo: (todo: ITodo) => void;
     // updateTodo: (id: number) => void;
     // deleteTodo: (id: number) => void;
@@ -27,7 +32,6 @@ type TodoContextType = {
 type Id = {
     id: string;
 };
-
 
 
 export const TodoContext = createContext<TodoContextType | null>(null);

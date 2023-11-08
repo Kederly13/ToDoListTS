@@ -33,10 +33,7 @@ type Id = {
     id: string;
 };
 
-
 export const TodoContext = createContext<TodoContextType | null>(null);
-
-
 
 export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
     const { id } = useParams<Id>();

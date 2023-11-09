@@ -1,7 +1,9 @@
 import { SearchForm } from './components/SearchForm';
 import { Buttons } from './components/Buttons';
+import { NewTaskBtn } from './components/NewTaskBtn';
 import { useContext } from 'react';
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { TodoContext } from '../../ToDoProvider';
 
@@ -22,6 +24,9 @@ export const Main = () => {
             <ul className={classes.todoList}>
                 
             </ul>
+            <NavLink to={'/add-task'}>
+                <NewTaskBtn />
+            </NavLink>
         </div>
     </section>
     )

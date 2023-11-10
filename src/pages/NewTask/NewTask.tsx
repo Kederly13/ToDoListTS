@@ -2,7 +2,8 @@ import { useNavigation } from 'react-router-dom';
 import { ToDoProvider } from 'ToDoProvider';
 
 import { TaskNameForm } from '../../components/TaskNameForm';
-import { AddTaskBtn } from '../../components/AddTaskBtn'
+import { SaveTaskBtn } from '../../components/SaveTaskBtn';
+import { DateForms } from '../../components/DateForms';
 
 import Arrow from './Arrow.svg';
 import classes from './NewTask.module.sass';
@@ -28,7 +29,8 @@ export const NewTask = () => {
                     </div>
                     <div className={classes.body}>
                         <TaskNameForm />
-                        <AddTaskBtn />
+                        <DateForms />
+                        <SaveTaskBtn />
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import React from 'react';
 
 import classes from './SaveTaskButton.module.sass'; 
 
-export const AddTaskBtn = () => {
+export const SaveTaskBtn = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

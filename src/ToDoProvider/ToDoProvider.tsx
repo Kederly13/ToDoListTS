@@ -27,6 +27,7 @@ type TodoContextType = {
     // updateTodo: (id: number) => void;
     // deleteTodo: (id: number) => void;
     navNewTask: () => void;
+    navPrevPage: () => void
 };
 
 type Id = {
@@ -46,8 +47,12 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
         navigate(`/add-task`);
     }
 
+    const navPrevPage = () => {
+        navigate(-1);
+    }
+
     return (
-        <TodoContext.Provider value={{ todos, navNewTask }}>
+        <TodoContext.Provider value={{ todos, navNewTask, navPrevPage }}>
             {children}
         </TodoContext.Provider>
     )

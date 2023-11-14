@@ -1,8 +1,13 @@
 import Clock from './clock.svg';
 
-import classes from './TimeForm.module.sass';
+import classes from './TimeInput.module.sass';
 
-export const TimeForm = () => (
+interface DateInputProps {
+    onChange: (newValue: string) => void;
+    dueTime: string
+}
+
+export const TimeInput = ({ onChange, dueTime}: DateInputProps) => (
     <form className={classes.time}>
         <label htmlFor='date' className={classes.time__label}>Select Time</label>
         <input
@@ -10,8 +15,8 @@ export const TimeForm = () => (
             id='time' 
             name='dueTime' 
             type='time'
-            // onChange={onChange}
-            // value={value} 
+            onChange={(e) => onChange(e.target.value)}
+            value={dueTime} 
             className={classes.time__input}                
         />
     </form>

@@ -1,36 +1,40 @@
-import { useNavigation } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { ToDoProvider } from 'ToDoProvider';
 
-import { TaskNameForm } from '../../components/TaskNameForm';
-import { SaveTaskBtn } from '../../components/SaveTaskBtn';
-import { DateForms } from '../../components/DateForms';
+// import { TaskNameInput } from '../../components/Form/components/TaskNameInput';
+import { Form } from '../../components/Form';
+
 
 import Arrow from './Arrow.svg';
 import classes from './NewTask.module.sass';
 
 type CustomNavigate = (steps: number) => void;
 
+type Navigate = {
+    navNewTask: () => void;
+    navPrevPage: () => void
+};
+
 export const NewTask = () => {
+    const navigate = useNavigate();
 
-    // const navigate = useNavigation();
-    // console.log(navigate)
+    const goToPrevPage = () => {
+        navigate(-1)
+    };
     
-
     return (
         <section className={classes.newTaskSection}>
             <div className={classes.container}>
                 <div className={classes.newTask}>
                     <div className={classes.header}>
-                        <button type='button'>
+                        <button type='button' onClick={() => goToPrevPage()}>
                             <img src={Arrow} alt='back' className={classes.backArrow}/>
                         </button>
                         <h1 className={classes.newTask__title}>Add New Task</h1>
-                        
                     </div>
                     <div className={classes.body}>
-                        <TaskNameForm />
-                        <DateForms />
-                        <SaveTaskBtn />
+                        <Form />
+  
                     </div>
                 </div>
             </div>

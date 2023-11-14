@@ -9,11 +9,12 @@ type TodoProviderParams = {
 interface ITodo {
     id: number;
     title: string;
-    dueDate: Date;
-    priority: string;
-    complexity: string;
-    tags: string[];
-    subTasks: string[];
+    dueDate: string;
+    dueTime: string
+    priority?: string;
+    complexity?: string;
+    tags?: string[];
+    subTasks?: string[];
 }
 
 interface IFilterMenu {
@@ -22,12 +23,9 @@ interface IFilterMenu {
 
 type TodoContextType = {
     todos: ITodo[];
-
-    // saveTodo: (todo: ITodo) => void;
+    saveTodo: (todo: ITodo) => void;
     // updateTodo: (id: number) => void;
     // deleteTodo: (id: number) => void;
-    navNewTask: () => void;
-    navPrevPage: () => void
 };
 
 type Id = {
@@ -40,19 +38,15 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
     const { id } = useParams<Id>();
     const [todos, setTodos] = useState<ITodo[]>([]);
     
-
     const navigate = useNavigate();
 
-    const navNewTask = () => {
-        navigate(`/add-task`);
-    }
-
-    const navPrevPage = () => {
-        navigate(-1);
-    }
+    const saveTodo = (todo: ITodo) => {
+        const newTodo = [...todos, todo];
+        setTodos(newTodo)
+    };
 
     return (
-        <TodoContext.Provider value={{ todos, navNewTask, navPrevPage }}>
+        <TodoContext.Provider value={{ todos, saveTodo }}>
             {children}
         </TodoContext.Provider>
     )

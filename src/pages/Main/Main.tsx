@@ -17,9 +17,11 @@ type Navigate = {
 
 export const Main = () => {
     const todoContext = useContext(TodoContext);
+    console.log(todoContext?.todos);
+    // const { todos } = useContext(TodoContext);
 
-    const toDos = todoContext?.todos;
-    console.log(toDos);
+    // const toDos = todoContext?.todos;
+    // console.log(toDos);
 
     const navigate = useNavigate();
 

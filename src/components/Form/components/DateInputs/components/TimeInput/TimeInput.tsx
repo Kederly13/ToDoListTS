@@ -5,10 +5,10 @@ import classes from './TimeInput.module.sass';
 interface DateInputProps {
     onChange: (newValue: string) => void;
     dueTime: string
-}
+};
 
 export const TimeInput = ({ onChange, dueTime}: DateInputProps) => (
-    <form className={classes.time}>
+    <div className={classes.time}>
         <label htmlFor='date' className={classes.time__label}>Select Time</label>
         <input
             placeholder='00:00'
@@ -19,5 +19,5 @@ export const TimeInput = ({ onChange, dueTime}: DateInputProps) => (
             value={dueTime} 
             className={classes.time__input}                
         />
-    </form>
+    </div>
 );

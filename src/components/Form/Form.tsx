@@ -21,13 +21,14 @@ export const Form = () => {
     const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const newTodo = {
-            id: Number(uid()),
+            id: uid(),
             title: taskName,
             dueDate: dueDate,
             dueTime: dueTime
         };
 
         todoContext?.saveTodo(newTodo)
+        
     };
 
     const handleTaskNameChange = (newValue: string) => {
@@ -44,7 +45,7 @@ export const Form = () => {
 
     return (
         <ToDoProvider>
-            <form className={classes.form}>
+            <form className={classes.form} onSubmit={handleAddTask}>
                 <DateInputs 
                     onDateChange={handleDueDateChange} 
                     onTimeChange={handleDueTimeChange}
@@ -52,9 +53,8 @@ export const Form = () => {
                     dueTime={dueTime}
                 />
                 <TaskNameInput value={taskName} setValue={handleTaskNameChange}/>
-                <SaveTaskBtn handleSubmit={handleAddTask}/>
+                <SaveTaskBtn />
             </form>
-        </ToDoProvider>
-        
+        </ToDoProvider>   
     );
 };

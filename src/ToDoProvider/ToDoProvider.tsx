@@ -7,7 +7,7 @@ type TodoProviderParams = {
 };
 
 interface ITodo {
-    id: number;
+    id: string;
     title: string;
     dueDate: string;
     dueTime: string
@@ -41,8 +41,11 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
     const navigate = useNavigate();
 
     const saveTodo = (todo: ITodo) => {
+        
         const newTodo = [...todos, todo];
-        setTodos(newTodo)
+        setTodos((prevTodos) => [
+            ...prevTodos, todo
+        ]);
     };
 
     return (

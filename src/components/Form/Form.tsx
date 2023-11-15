@@ -19,7 +19,7 @@ export const Form = () => {
     const todoContext = useContext(TodoContext);
 
     const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault;
+        e.preventDefault();
         const newTodo = {
             id: Number(uid()),
             title: taskName,
@@ -52,7 +52,7 @@ export const Form = () => {
                     dueTime={dueTime}
                 />
                 <TaskNameInput value={taskName} setValue={handleTaskNameChange}/>
-                <SaveTaskBtn onClick={(e) => handleAddTask(e)}/>
+                <SaveTaskBtn handleSubmit={handleAddTask}/>
             </form>
         </ToDoProvider>
         

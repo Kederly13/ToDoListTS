@@ -4,7 +4,7 @@ import React from 'react';
 import classes from './SaveTaskButton.module.sass'; 
 
 interface SaveTaskButtonProps {
-    handleSubmit: () => void; 
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void; 
 }
 
 

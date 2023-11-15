@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useContext } from "react";
+import { uid } from 'uid';
 
 import { DateInputs } from './components/DateInputs';
 import { TaskNameInput } from './components/TaskNameInput';
 import { SaveTaskBtn } from './components/SaveTaskBtn';
-import { ToDoProvider } from 'ToDoProvider';
+import { ToDoProvider, TodoContext } from 'ToDoProvider';
 
 import classes from './Form.module.sass';
 
@@ -15,7 +16,19 @@ export const Form = () => {
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
 
-    // const { saveTodo } = useContext(ToDoProvider)
+    const todoContext = useContext(TodoContext);
+
+    const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault;
+        const newTodo = {
+            id: Number(uid()),
+            title: taskName,
+            dueDate: dueDate,
+            dueTime: dueTime
+        };
+
+        todoContext?.saveTodo(newTodo)
+    };
 
     const handleTaskNameChange = (newValue: string) => {
         setTaskName(newValue);
@@ -39,7 +52,7 @@ export const Form = () => {
                     dueTime={dueTime}
                 />
                 <TaskNameInput value={taskName} setValue={handleTaskNameChange}/>
-                {/* <SaveTaskBtn handleSubmit={saveTodo}/> */}
+                <SaveTaskBtn onClick={(e) => handleAddTask(e)}/>
             </form>
         </ToDoProvider>
         

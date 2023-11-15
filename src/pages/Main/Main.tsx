@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 import { SearchForm } from './components/SearchForm';
 import { Buttons } from './components/Buttons';
 import { NewTaskBtn } from './components/NewTaskBtn';
 import { useContext } from 'react';
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import { TodoContext } from '../../ToDoProvider';
 
@@ -17,11 +18,12 @@ type Navigate = {
 export const Main = () => {
     const todoContext = useContext(TodoContext);
 
+    const toDos = todoContext?.todos;
+    console.log(toDos);
+
     const navigate = useNavigate();
 
-    if (todoContext) {
-        const { todos } = todoContext;
-    };
+   
 
     return (
         <section className={classes.main}>

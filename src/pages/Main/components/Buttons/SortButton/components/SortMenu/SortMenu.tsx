@@ -1,7 +1,6 @@
 import classes from './SortMenu.module.sass';
 import { menuData } from './data/menuData';
 // do the ul, li, create data with array of items and use map, use label and wrap input
-console.log(menuData)
 
 export const SortMenu = () => {
 

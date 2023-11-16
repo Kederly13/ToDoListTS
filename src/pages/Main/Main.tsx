@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import { SearchForm } from './components/SearchForm';
@@ -10,10 +9,6 @@ import { useContext } from 'react';
 import { TodoContext } from '../../ToDoProvider';
 
 import classes from './main.module.sass';
-
-type Navigate = {
-    navNewTask: () => void;
-};
 
 export const Main = () => {
     const todoContext = useContext(TodoContext);
@@ -35,11 +30,9 @@ export const Main = () => {
                 <ul className={classes.todoList}>
                     
                 </ul>
-                {/* <NavLink to={'/add-task'}> */}
-                    <NewTaskBtn onClick={() => navigate('/add-task')}>
-                        <span>+ add new task </span>
-                    </NewTaskBtn>
-                {/* </NavLink> */}
+                <NewTaskBtn onClick={() => navigate('/add-task')}>
+                    <span>+ add new task </span>
+                </NewTaskBtn>
             </div>
         </section>
     )   

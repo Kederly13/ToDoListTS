@@ -11,6 +11,7 @@ export const Priority = () => {
 
     const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedPriority(event.target.value);
+        console.log(selectedPriority)
     };
 
 
@@ -26,7 +27,7 @@ export const Priority = () => {
                             type='radio' 
                             value={number} 
                             className={classes.priority__input}
-                            checked={selectedPriority === number}
+                            
                             onChange={handlePriorityChange} 
                         />
                     </span>

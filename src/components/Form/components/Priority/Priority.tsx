@@ -10,40 +10,32 @@ export const Priority = () => {
     const [selectedPriority, setSelectedPriority] = useState('');
 
     const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value, checked } = event.target;
+        
+
         setSelectedPriority(event.target.value);
         console.log(selectedPriority)
     };
 
-
     return (
         <div className={classes.priority}>
             <h2 className={classes.priority__title}>Select Priority Level</h2>
-            <label htmlFor='Priority' className={classes.priority__label}>
-                {numbers.map((number) => (
-                    <span className={classes.priority__number} key={number}>
+            <div className={classes.priority__wrapper}>
+                {numbers.map((number, index) => (
+                    <label className={classes.priority__number} key={number}>
                         {number}
                         <input 
-                            name='Priority' 
+                            name='priority' 
                             type='radio' 
                             value={number} 
                             className={classes.priority__input}
-                            
-                            onChange={handlePriorityChange} 
+                            onChange={handlePriorityChange}
+                            checked 
                         />
-                    </span>
+                    </label>
                 ))}
-            </label>
-            {/* <label htmlFor='priority' className={classes.priority}>
-                
-                <div className={classes.priorityWrapper}>
-                    <div className={classes.priority__item}>
-                        <input name='priority' type='radio' className={classes.priority__input}/>
-                        <span className={classes.priority__number}>1</span> 
-                    </div>  
-                </div>   
-            </label> */}
+            </div> 
         </div>
     );
 };
-
 

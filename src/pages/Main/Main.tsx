@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { SearchForm } from './components/SearchForm';
 import { Buttons } from './components/Buttons';
 import { NewTaskBtn } from './components/NewTaskBtn';
+import { Todo } from './components/Todo';
 import { useContext } from 'react';
 
 import { TodoContext } from '../../ToDoProvider';
@@ -20,20 +21,32 @@ export const Main = () => {
 
     const navigate = useNavigate();
 
-   
+    // const { id, title, dueDate, dueTime, priority, complexity } = useContext.
 
     return (
         <section className={classes.main}>
             <div className={classes.container}>
                 <SearchForm />
                 <Buttons />
-                <ul className={classes.todoList}>
-                    
-                </ul>
+                {todoContext?.todos && (
+                    <ul className={classes.todoList}>
+                        {todoContext.todos.map((todo) => (
+                            <li key={todo.id}>
+                                <Todo
+                                    title={todo.title}
+                                    dueDate={todo.dueDate}
+                                    dueTime={todo.dueTime}
+                                    priority={todo.priority}
+                                    complexity={todo.complexity}
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                )}
                 <NewTaskBtn onClick={() => navigate('/add-task')}>
                     <span>+ add new task </span>
                 </NewTaskBtn>
             </div>
         </section>
-    )   
+    );   
 };

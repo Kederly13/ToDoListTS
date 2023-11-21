@@ -6,13 +6,13 @@ type TodoProviderParams = {
     children: ReactNode;
 };
 
-interface ITodo {
-    id: string;
+export interface ITodo {
+    id?: string;
     title: string;
     dueDate: string;
     dueTime: string
-    priority?: string;
-    complexity?: string;
+    priority?: number;
+    complexity?: number;
     tags?: string[];
     subTasks?: string[];
 }

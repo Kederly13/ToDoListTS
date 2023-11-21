@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { DateInputs } from './components/DateInputs';
 import { TaskNameInput } from './components/TaskNameInput';
 import { Priority } from './components/Priority';
+import { Complexity } from './components/Complexity';
 import { SaveTaskBtn } from './components/SaveTaskBtn';
 import { ToDoProvider, TodoContext } from 'ToDoProvider';
 
@@ -18,6 +19,8 @@ export const Form = () => {
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
     const [taskExists, setTaskExists] = useState('');
+    const [priority, setPriority] = useState<number>();
+    const [complexity, setComplexity] = useState<number>();
 
     const todoContext = useContext(TodoContext);
     const navigate = useNavigate();
@@ -31,7 +34,9 @@ export const Form = () => {
                 id: uid(),
                 title: taskName,
                 dueDate: dueDate,
-                dueTime: dueTime
+                dueTime: dueTime,
+                priority: priority,
+                complexity: complexity
             };
             todoContext?.saveTodo(newTodo);
             setTaskName('');
@@ -53,6 +58,14 @@ export const Form = () => {
         setDueTime(newValue);
     };
 
+    const handlePriority = (newValue: number) => {
+        setPriority(newValue);
+    };
+
+    const handleCompexity = (newValue: number) => {
+        setComplexity(newValue);
+    };
+
     return (
         <ToDoProvider>
             <form className={classes.form} onSubmit={handleAddTask}>
@@ -63,7 +76,14 @@ export const Form = () => {
                     dueDate={dueDate}
                     dueTime={dueTime}
                 />
-                <Priority />
+                <Priority
+                    priority={priority}
+                    setPriority={handlePriority} 
+                />
+                <Complexity
+                    complexity={complexity}
+                    setComplexity={handleCompexity}
+                /> 
                 <SaveTaskBtn />
             </form>
         </ToDoProvider>   

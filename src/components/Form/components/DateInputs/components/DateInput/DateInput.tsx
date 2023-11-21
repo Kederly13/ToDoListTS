@@ -3,11 +3,9 @@ import classes from './DateInput.module.sass';
 interface DateInputProps {
     onChange: (newValue: string) => void;
     dueDate: string
-}
+};
 
-export const DateInput = ({ dueDate, onChange }: DateInputProps) => {
-
-    return (
+export const DateInput = ({ dueDate, onChange }: DateInputProps) => (
     <div className={classes.date}>
         <label htmlFor='date' className={classes.date__label}>Select Due Date</label>
         <input
@@ -20,9 +18,7 @@ export const DateInput = ({ dueDate, onChange }: DateInputProps) => {
             className={classes.date__input}                
         />
     </div>
-    )
-    
-};
+);
 
 
 

@@ -9,6 +9,7 @@ import { Priority } from './components/Priority';
 import { Complexity } from './components/Complexity';
 import { SaveTaskBtn } from './components/SaveTaskBtn';
 import { ToDoProvider, TodoContext } from 'ToDoProvider';
+import { Checklist } from './components/Checklist';
 
 import classes from './Form.module.sass';
 
@@ -21,6 +22,7 @@ export const Form = () => {
     const [taskExists, setTaskExists] = useState('');
     const [priority, setPriority] = useState<number>();
     const [complexity, setComplexity] = useState<number>();
+    const [checklist, setChecklist] = useState<string[]>([]);
 
     const todoContext = useContext(TodoContext);
     const navigate = useNavigate();
@@ -36,7 +38,8 @@ export const Form = () => {
                 dueDate: dueDate,
                 dueTime: dueTime,
                 priority: priority,
-                complexity: complexity
+                complexity: complexity,
+                checklist: checklist
             };
             todoContext?.saveTodo(newTodo);
             setTaskName('');
@@ -66,6 +69,13 @@ export const Form = () => {
         setComplexity(newValue);
     };
 
+    const handleChecklist = (newSubtask: string) => {
+        setChecklist((prevSubtasks) => [
+            ...prevSubtasks, newSubtask
+        ]);
+    };
+
+
     return (
         <ToDoProvider>
             <form className={classes.form} onSubmit={handleAddTask}>
@@ -83,6 +93,11 @@ export const Form = () => {
                 <Complexity
                     complexity={complexity}
                     setComplexity={handleCompexity}
+                />
+                <Checklist
+                    newSubtask
+                    setChecklist={handleChecklist}
+                    checkList={checklist}
                 /> 
                 <SaveTaskBtn />
             </form>

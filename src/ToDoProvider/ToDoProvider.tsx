@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ReactNode } from 'react';
+import { ICheckItem } from 'components/Form/Form';
 
 type TodoProviderParams = {
     children: ReactNode;
@@ -14,13 +15,8 @@ export interface ITodo {
     priority?: number;
     complexity?: number;
     tags?: string[];
-    subTasks?: string[];
-    
+    subTasks?: ICheckItem[];  
 };
-
-interface IFilterMenu {
-
-}
 
 type TodoContextType = {
     todos: ITodo[];
@@ -38,11 +34,8 @@ export const TodoContext = createContext<TodoContextType | null>(null);
 export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
     const { id } = useParams<Id>();
     const [todos, setTodos] = useState<ITodo[]>([]);
-    
-    const navigate = useNavigate();
 
     const saveTodo = (todo: ITodo) => {
-        
         const newTodo = [...todos, todo];
         setTodos((prevTodos) => [
             ...prevTodos, todo

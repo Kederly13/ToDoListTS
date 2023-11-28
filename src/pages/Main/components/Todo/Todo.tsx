@@ -2,8 +2,6 @@ import { ITodo } from 'ToDoProvider/ToDoProvider';
 
 import classes from './Todo.module.sass';
 
-
-
 export const Todo = ({ id, title, dueDate, dueTime, priority, complexity } : ITodo) => {
     return (
         <div className={classes.todo} role='button' tabIndex={0}>
@@ -14,21 +12,21 @@ export const Todo = ({ id, title, dueDate, dueTime, priority, complexity } : ITo
                     <button type='button' />
                 </div>
             </div>
-            <ul>
-                <li>
+            <ul className={classes.todo__infoList}>
+                <li className={classes.todo__infoList__item}>
                     Due Date: <span className={classes.todo__date}>{dueDate}, {dueTime}</span>
                 </li>
-                <li>
+                <li className={classes.todo__infoList__item}>
                     Priority: {priority}
                 </li>
-                <li>
+                <li className={classes.todo__infoList__item}>
                     Complexity: {complexity}
                 </li>
             </ul>
-            <p className={classes.todo__item}>Due Date: <span className={classes.todo__date}>{dueDate}, {dueTime}</span></p>
-            <p className={classes.todo__item}>Priority: {priority}</p>
-            <p className={classes.todo__item}>Complexity: {complexity}</p>
-            <button aria-label='add subtask' title=''></button>
+            <ul>
+                
+            </ul>
+            {/* <button aria-label='add subtask' title=''></button> */}
         </div>
     );
 };

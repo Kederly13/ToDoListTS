@@ -3,10 +3,10 @@ import React, { ReactNode } from 'react';
 import classes from './CheckListInput.module.sass';
 
 interface ICheckListInput {
-    label: string;
-    htmlFor: string;
-    id: string;
-    placeholder: string;
+    label?: string;
+    htmlFor?: string;
+    id?: string;
+    placeholder?: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     buttonComponent?: ReactNode;

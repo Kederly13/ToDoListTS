@@ -18,7 +18,6 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, id} = e.target;
-
         updateCheckItemValue(value, id)
     };
 
@@ -38,21 +37,32 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
                 onChange={(e) => setNewSubtask(e.target.value)}
                 buttonComponent={
                     <CheckListBtn
-                        onClick={() =>handleNewCheckItem(newSubtask)}
+                        onClick={() => handleNewCheckItem(newSubtask)}
                         sign='+'
                     />
                 }
             />
             {checkList.length > 0 && (
                 checkList.map(({ value, id }) => (
-                    <div key={id}> 
-                        <input
-                            id={id}
-                            value={value}
-                            onChange={handleInputChange}
-                        />
-                        <button type='button' onClick={() => removeCheckItem(id)}>-</button>
-                    </div>
+                    <CheckListInput
+                        id={id}
+                        value={value}
+                        onChange={handleInputChange}
+                        buttonComponent={
+                            <CheckListBtn
+                                onClick={() => removeCheckItem(id)}
+                                sign='-'
+                            />
+                        } 
+                    />
+                    // <div key={id}> 
+                    //     <input
+                    //         id={id}
+                    //         value={value}
+                    //         onChange={handleInputChange}
+                    //     />
+                    //     <button type='button' onClick={() => removeCheckItem(id)}>-</button>
+                    // </div>
                 ))
             )}
         </div>

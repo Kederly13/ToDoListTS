@@ -16,11 +16,6 @@ export const Main = () => {
     console.log(todoContext?.todos);
     // const { todos } = useContext(TodoContext);
 
-    // const toDos = todoContext?.todos;
-    // console.log(toDos);
-
-   
-
     const navigate = useNavigate();
 
     // const { id, title, dueDate, dueTime, priority, complexity } = useContext.

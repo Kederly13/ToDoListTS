@@ -43,15 +43,6 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
                     />
                 }
             />
-            {/* <label htmlFor='checklist'>Add Checklist for subtasks</label>
-            <input
-                placeholder='Add item'
-                id='checklist'
-                onChange={(e) => setNewSubtask(e.target.value)}
-                value={newSubtask}
-            /> */}
-            
-            {/* <button type='button' onClick={() => handleNewCheckItem(newSubtask)}>+</button> */}
             {checkList.length > 0 && (
                 checkList.map(({ value, id }) => (
                     <div key={id}> 

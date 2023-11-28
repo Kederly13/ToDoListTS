@@ -15,13 +15,15 @@ interface ICheckListInput {
 export const CheckListInput: React.FC<ICheckListInput> = ({ htmlFor, id, placeholder, value, label, onChange, buttonComponent }) => (
     <div className={classes.checkItem}>
         <label htmlFor={htmlFor} className={classes.checkItem__label}>{label}</label>
-        <input
-            placeholder={placeholder}
-            id={id}
-            onChange={onChange}
-            value={value}
-            className={classes.checkItem__input}
-        />
-        {buttonComponent && buttonComponent}
+        <div className={classes.checkItem__wrapper}>
+            <input
+                placeholder={placeholder}
+                id={id}
+                onChange={onChange}
+                value={value}
+                className={classes.checkItem__input}
+            />
+            {buttonComponent && buttonComponent}
+        </div> 
     </div>
 );

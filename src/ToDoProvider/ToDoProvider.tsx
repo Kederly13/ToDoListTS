@@ -15,7 +15,8 @@ export interface ITodo {
     complexity?: number;
     tags?: string[];
     subTasks?: string[];
-}
+    
+};
 
 interface IFilterMenu {
 
@@ -52,5 +53,5 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
         <TodoContext.Provider value={{ todos, saveTodo }}>
             {children}
         </TodoContext.Provider>
-    )
-}
+    );
+};

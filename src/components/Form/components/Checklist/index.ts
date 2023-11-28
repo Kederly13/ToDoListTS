@@ -1,1 +1,1 @@
-export { Checklist } from './Checklist';
+export { CheckList } from './CheckList';

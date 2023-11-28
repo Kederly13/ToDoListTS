@@ -1,37 +1,67 @@
 import { useState } from 'react';
-import classes from 'Checklist.module.sass';
+import { ICheckItem } from 'components/Form/Form';
+import { CheckListBtn } from './components/CheckListBtn';
+import { CheckListInput } from './components/CheckListInput';
 
-interface ChecklistProps {
-    newSubtask: string,
-    setChecklist: (subTask: string) => void,
-    checkList: string[]
+import classes from './CheckList.module.sass';
+
+interface CheckListProps {
+    newSubtask: boolean,
+    addCheckItem: (value: string) => void,
+    removeCheckItem: (id: string) => void,
+    updateCheckItemValue: (value: string, id: string) => void,
+    checkList: ICheckItem[] 
 };
 
-export const Checklist = ({setChecklist, checkList }: ChecklistProps) => {
+export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue, checkList }: CheckListProps) => {
     const [newSubtask, setNewSubtask] = useState('');
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        const updatedCheckList = [...checkList];
-        updatedCheckList[index] = e.target.value;
-        setChecklist(updatedCheckList.join(', '));
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value, id} = e.target;
+
+        updateCheckItemValue(value, id)
+    };
+
+    const handleNewCheckItem = (newSubtask: string) => {
+        addCheckItem(newSubtask)
+        setNewSubtask('');    
     };
     
     return (
         <div className={classes.checklist}>
-            <label htmlFor='checklist'>Add Checklist for subtasks</label>
+            <CheckListInput
+                label='Add Checklist for subtasks'
+                htmlFor='checklist'
+                id='checklist'
+                placeholder='Add item'
+                value={newSubtask}
+                onChange={(e) => setNewSubtask(e.target.value)}
+                buttonComponent={
+                    <CheckListBtn
+                        onClick={() =>handleNewCheckItem(newSubtask)}
+                        sign='+'
+                    />
+                }
+            />
+            {/* <label htmlFor='checklist'>Add Checklist for subtasks</label>
             <input
                 placeholder='Add item'
                 id='checklist'
-                onChange={(e) => setChecklist(e.target.value)}
+                onChange={(e) => setNewSubtask(e.target.value)}
                 value={newSubtask}
-            />
+            /> */}
+            
+            {/* <button type='button' onClick={() => handleNewCheckItem(newSubtask)}>+</button> */}
             {checkList.length > 0 && (
-                checkList.map((item: string, index: number) => (
-                    <input
-                        key={index}
-                        value={item}
-                        onChange={(e) => handleInputChange(e, index)}
-                    />
+                checkList.map(({ value, id }) => (
+                    <div key={id}> 
+                        <input
+                            id={id}
+                            value={value}
+                            onChange={handleInputChange}
+                        />
+                        <button type='button' onClick={() => removeCheckItem(id)}>-</button>
+                    </div>
                 ))
             )}
         </div>

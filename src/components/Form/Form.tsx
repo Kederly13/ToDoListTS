@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useContext } from "react";
 import { uid } from 'uid';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { DateInputs } from './components/DateInputs';
 import { TaskNameInput } from './components/TaskNameInput';
@@ -9,9 +9,14 @@ import { Priority } from './components/Priority';
 import { Complexity } from './components/Complexity';
 import { SaveTaskBtn } from './components/SaveTaskBtn';
 import { ToDoProvider, TodoContext } from 'ToDoProvider';
-import { Checklist } from './components/Checklist';
+import { CheckList } from './components/Checklist';
 
 import classes from './Form.module.sass';
+
+export interface ICheckItem {
+    id: string,
+    value: string
+};
 
 
 export const Form = () => {
@@ -22,7 +27,7 @@ export const Form = () => {
     const [taskExists, setTaskExists] = useState('');
     const [priority, setPriority] = useState<number>();
     const [complexity, setComplexity] = useState<number>();
-    const [checklist, setChecklist] = useState<string[]>([]);
+    const [checklist, setChecklist] = useState<ICheckItem[]>([]);
 
     const todoContext = useContext(TodoContext);
     const navigate = useNavigate();
@@ -69,10 +74,32 @@ export const Form = () => {
         setComplexity(newValue);
     };
 
-    const handleChecklist = (newSubtask: string) => {
-        setChecklist((prevSubtasks) => [
-            ...prevSubtasks, newSubtask
-        ]);
+    const addCheckItem = (value: string) => {
+        setChecklist((prev) => ([
+                ...prev,
+                {
+                    id: uid(),
+                    value
+                }
+            ])
+        );
+    };
+
+    const removeCheckItem = (id: string) => {
+        setChecklist((prev) => prev.filter((item) => item.id !== id));
+    };
+
+    const updateCheckItemValue = (value: string, id: string) => {
+        setChecklist((prev) => prev.map((item) => {
+            if (item.id === id) {
+                return {
+                    ...item,
+                    value
+                }
+            };
+
+            return item;
+        }));
     };
 
 
@@ -94,11 +121,13 @@ export const Form = () => {
                     complexity={complexity}
                     setComplexity={handleCompexity}
                 />
-                <Checklist
+                <CheckList
                     newSubtask
-                    setChecklist={handleChecklist}
+                    addCheckItem={addCheckItem}
+                    removeCheckItem={removeCheckItem}
+                    updateCheckItemValue={updateCheckItemValue}
                     checkList={checklist}
-                /> 
+                />
                 <SaveTaskBtn />
             </form>
         </ToDoProvider>   

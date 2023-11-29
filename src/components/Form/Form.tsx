@@ -9,8 +9,8 @@ import { Priority } from './components/Priority';
 import { Complexity } from './components/Complexity';
 import { SaveTaskBtn } from './components/SaveTaskBtn';
 import { ToDoProvider, TodoContext } from 'ToDoProvider';
-import { CheckList } from './components/Checklist';
-
+import { Tags } from './components/Tags';
+import { CheckList } from '../Form/components/CheckList';
 import classes from './Form.module.sass';
 
 export interface ICheckItem {
@@ -28,6 +28,7 @@ export const Form = () => {
     const [priority, setPriority] = useState<number>();
     const [complexity, setComplexity] = useState<number>();
     const [checklist, setChecklist] = useState<ICheckItem[]>([]);
+    const [tags, setTags] = useState<string[]>([]);
 
     const todoContext = useContext(TodoContext);
     const navigate = useNavigate();
@@ -44,7 +45,8 @@ export const Form = () => {
                 dueTime: dueTime,
                 priority: priority,
                 complexity: complexity,
-                checkList: checklist
+                checkList: checklist,
+                tags: tags
             };
             todoContext?.saveTodo(newTodo);
             setTaskName('');
@@ -82,6 +84,19 @@ export const Form = () => {
                 value
             }
         ]));
+    };
+
+    const handleTags = (value: string) => {
+        let tags = [];
+        if (value.includes(',')) {
+            tags = value.split(', ');
+        } else if (value.includes(' ')) {
+            tags.push(value)
+        }
+        else  {
+            tags = value.split(' ');
+        }
+        setTags(tags);
     };
 
     const removeCheckItem = (id: string) => {
@@ -126,6 +141,10 @@ export const Form = () => {
                     removeCheckItem={removeCheckItem}
                     updateCheckItemValue={updateCheckItemValue}
                     checkList={checklist}
+                />
+                <Tags
+                   value={tags}
+                   setValue={} 
                 />
                 <SaveTaskBtn />
             </form>

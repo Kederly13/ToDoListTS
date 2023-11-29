@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ICheckItem } from 'components/Form/Form';
-import { CheckListBtn } from './components/CheckListBtn';
+import { CheckListBtn } from '../CheckList/components/CheckListBtn';
 import { CheckListInput } from './components/CheckListInput';
 
 import classes from './CheckList.module.sass';
@@ -56,14 +56,6 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
                             />
                         } 
                     />
-                    // <div key={id}> 
-                    //     <input
-                    //         id={id}
-                    //         value={value}
-                    //         onChange={handleInputChange}
-                    //     />
-                    //     <button type='button' onClick={() => removeCheckItem(id)}>-</button>
-                    // </div>
                 ))
             )}
         </div>

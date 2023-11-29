@@ -18,8 +18,6 @@ export const Main = () => {
 
     const navigate = useNavigate();
 
-    // const { id, title, dueDate, dueTime, priority, complexity } = useContext.
-
     return (
         <section className={classes.main}>
             <div className={classes.container}>
@@ -35,6 +33,7 @@ export const Main = () => {
                                     dueTime={todo.dueTime}
                                     priority={todo.priority}
                                     complexity={todo.complexity}
+                                    checkList={todo.checkList}
                                 />
                             </li>
                         ))}

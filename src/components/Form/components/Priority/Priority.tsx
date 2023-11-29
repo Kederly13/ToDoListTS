@@ -26,7 +26,7 @@ export const Priority = ({ priority, setPriority }: IPriorityProps) => {
             <h2 className={classes.priority__title}>Select Priority Level</h2>
             <div className={classes.priority__wrapper}>
                 {numbers.map((number) => (
-                    <label className={`${classes.priority__number} ${priority === number ? classes.active : ""}`}>
+                    <label key={number} className={`${classes.priority__number} ${priority === number ? classes.active : ""}`}>
                         {number}
                         <input 
                             name='priority' 

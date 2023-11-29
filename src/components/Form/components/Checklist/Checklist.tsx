@@ -22,8 +22,8 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
     };
 
     const handleNewCheckItem = (newSubtask: string) => {
-        addCheckItem(newSubtask)
-        setNewSubtask('');    
+        addCheckItem(newSubtask);
+        setNewSubtask('');      
     };
     
     return (
@@ -45,6 +45,7 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
             {checkList.length > 0 && (
                 checkList.map(({ value, id }) => (
                     <CheckListInput
+                        key={id}
                         id={id}
                         value={value}
                         onChange={handleInputChange}

@@ -44,7 +44,7 @@ export const Form = () => {
                 dueTime: dueTime,
                 priority: priority,
                 complexity: complexity,
-                checklist: checklist
+                checkList: checklist
             };
             todoContext?.saveTodo(newTodo);
             setTaskName('');
@@ -76,13 +76,12 @@ export const Form = () => {
 
     const addCheckItem = (value: string) => {
         setChecklist((prev) => ([
-                ...prev,
-                {
-                    id: uid(),
-                    value
-                }
-            ])
-        );
+            ...prev,
+            {
+                id: uid(),
+                value
+            }
+        ]));
     };
 
     const removeCheckItem = (id: string) => {

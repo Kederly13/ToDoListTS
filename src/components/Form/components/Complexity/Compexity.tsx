@@ -25,7 +25,7 @@ export const Complexity = ({ complexity, setComplexity }: IComplexityProps) => {
             <h2 className={classes.complexity__title}>Select Complexity Level</h2>
             <div className={classes.complexity__wrapper}>
                 {numbers.map((number) => (
-                    <label className={`${classes.complexity__number} ${complexity === number ? classes.active : ""}`}>
+                    <label key={number} className={`${classes.complexity__number} ${complexity === number ? classes.active : ""}`}>
                         {number}
                         <input 
                             name='complexity' 

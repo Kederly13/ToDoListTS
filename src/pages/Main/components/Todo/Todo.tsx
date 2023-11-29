@@ -1,10 +1,11 @@
 import { ITodo } from 'ToDoProvider/ToDoProvider';
+import { CheckItems } from './components/CheckItems';
 
 import classes from './Todo.module.sass';
 
-export const Todo = ({ id, title, dueDate, dueTime, priority, complexity } : ITodo) => {
+export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, checkList } : ITodo) => {
     return (
-        <div className={classes.todo} role='button' tabIndex={0}>
+        <div className={classes.todo} role='button' tabIndex={0} key={id}>
             <div className={classes.todo__header}>
                 <h3 className={classes.todo__title}>{title}</h3>
                 <div className={classes.todo__buttons}>
@@ -23,9 +24,11 @@ export const Todo = ({ id, title, dueDate, dueTime, priority, complexity } : ITo
                     Complexity: {complexity}
                 </li>
             </ul>
-            <ul>
-                
-            </ul>
+            {checkList &&
+                <CheckItems
+                    checkItems={checkList}
+                /> 
+            }
             {/* <button aria-label='add subtask' title=''></button> */}
         </div>
     );

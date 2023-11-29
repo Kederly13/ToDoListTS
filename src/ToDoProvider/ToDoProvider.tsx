@@ -15,7 +15,7 @@ export interface ITodo {
     priority?: number;
     complexity?: number;
     tags?: string[];
-    subTasks?: ICheckItem[];  
+    checkList?: ICheckItem[];  
 };
 
 type TodoContextType = {

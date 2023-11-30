@@ -1,5 +1,5 @@
 import { ITodo } from 'ToDoProvider/ToDoProvider';
-import { CheckItems } from './components/CheckItems';
+import { CheckItems } from './components/InputItems';
 
 import classes from './Todo.module.sass';
 

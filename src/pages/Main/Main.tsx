@@ -34,6 +34,7 @@ export const Main = () => {
                                     priority={todo.priority}
                                     complexity={todo.complexity}
                                     checkList={todo.checkList}
+                                    tags={todo.tags}
                                 />
                             </li>
                         ))}

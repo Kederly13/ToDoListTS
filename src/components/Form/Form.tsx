@@ -10,7 +10,7 @@ import { Complexity } from './components/Complexity';
 import { SaveTaskBtn } from './components/SaveTaskBtn';
 import { ToDoProvider, TodoContext } from 'ToDoProvider';
 import { Tags } from './components/Tags';
-import { CheckList } from '../Form/components/CheckList';
+import { CheckList } from './components/Checklist/CheckList';
 import classes from './Form.module.sass';
 
 export interface ICheckItem {
@@ -143,8 +143,8 @@ export const Form = () => {
                     checkList={checklist}
                 />
                 <Tags
-                   value={tags}
-                   setValue={} 
+
+                   setValue={handleTags} 
                 />
                 <SaveTaskBtn />
             </form>

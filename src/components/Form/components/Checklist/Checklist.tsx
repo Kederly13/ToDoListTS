@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ICheckItem } from 'components/Form/Form';
-import { CheckListBtn } from '../CheckList/components/CheckListBtn';
-import { CheckListInput } from './components/CheckListInput';
+import { CheckListBtn } from './components/CheckListBtn';
+import { CheckListInput } from './components/CheckListInput/CheckListInput';
 
 import classes from './CheckList.module.sass';
 

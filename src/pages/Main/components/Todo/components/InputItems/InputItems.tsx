@@ -2,13 +2,13 @@ import { ICheckItem } from 'components/Form/Form';
 
 import classes from './CheckItems.module.sass';
 
-interface ICheckItemsProps {
-    checkItems: ICheckItem[];
+interface IInputItems {
+    inputItems: string[];
 };
 
-export const CheckItems: React.FC<ICheckItemsProps> = ({ checkItems }) => (
-    <ul className={classes.сheckItems}>
-        {checkItems.map(({value, id}) => (
+export const InputItems: React.FC<IInputItems> = ({ inputItems }) => (
+    <ul className={classes.inputItems}>
+        {inputItems.map(({value}) => (
             <li className={classes.checkItems__item} key={id}>
                 {value}
             </li>

@@ -1,26 +1,27 @@
 import { useState } from "react";
 
-import { CheckListInput } from '../CheckList/components/CheckListInput';
+import { CheckListInput } from "../Checklist/components/CheckListInput";
 
 interface ITagsProps {
     setValue: (value: string) => void;
-    tags: [];
 };
 
 export const Tags = ({ setValue }: ITagsProps) => {
 
     const [tagValue, setTagValue] = useState('');
 
-    const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) {
-
-    }
-    s
-
-
+    const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+       const value = e.target.value;
+       setTagValue(value);
+       setValue(tagValue);   
+    };
+    
     return (
         <CheckListInput
             value={tagValue}
-            onChange={(e) => handleTagChange(e.target.value)}
+            onChange={handleTagChange}
+            label="Add Tags"
+            placeholder='enter tags'
         />
     );
 };

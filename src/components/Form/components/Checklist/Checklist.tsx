@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ICheckItem } from 'components/Form/Form';
 import { CheckListBtn } from './components/CheckListBtn';
-import { CheckListInput } from './components/CheckListInput/CheckListInput';
+import { Input } from '../Input/Input';
 
 import classes from './CheckList.module.sass';
 
@@ -28,7 +28,7 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
     
     return (
         <div className={classes.checklist}>
-            <CheckListInput
+            <Input
                 label='Add Checklist for subtasks'
                 htmlFor='checklist'
                 id='checklist'
@@ -44,7 +44,7 @@ export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue,
             />
             {checkList.length > 0 && (
                 checkList.map(({ value, id }) => (
-                    <CheckListInput
+                    <Input
                         key={id}
                         id={id}
                         value={value}

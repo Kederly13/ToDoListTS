@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { CheckListInput } from "../Checklist/components/CheckListInput";
+import { Input } from '../Input';
 
 interface ITagsProps {
     setValue: (value: string) => void;
@@ -17,7 +17,7 @@ export const Tags = ({ setValue }: ITagsProps) => {
     };
     
     return (
-        <CheckListInput
+        <Input
             value={tagValue}
             onChange={handleTagChange}
             label="Add Tags"

@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
-import classes from './CheckListInput.module.sass';
+import classes from './Input.module.sass';
 
-interface ICheckListInput {
+interface IInput {
     label?: string;
     htmlFor?: string;
     id?: string;
@@ -10,18 +10,18 @@ interface ICheckListInput {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     buttonComponent?: ReactNode;
-}
+};
 
-export const CheckListInput: React.FC<ICheckListInput> = ({ htmlFor, id, placeholder, value, label, onChange, buttonComponent }) => (
-    <div className={classes.checkItem}>
-        <label htmlFor={htmlFor} className={classes.checkItem__label}>{label}</label>
-        <div className={classes.checkItem__wrapper}>
+export const Input: React.FC<IInput> = ({ htmlFor, id, placeholder, value, label, onChange, buttonComponent }) => (
+    <div className={classes.inputItem}>
+        <label htmlFor={htmlFor} className={classes.inputItem__label}>{label}</label>
+        <div className={classes.inputItem__wrapper}>
             <input
                 placeholder={placeholder}
                 id={id}
                 onChange={onChange}
                 value={value}
-                className={classes.checkItem__input}
+                className={classes.inputItem__input}
             />
             {buttonComponent && buttonComponent}
         </div> 

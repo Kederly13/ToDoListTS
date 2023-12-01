@@ -1,6 +1,4 @@
-// import { Router, Routes, BrowserRouter } from 'react-router-dom';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { ToDoProvider } from 'ToDoProvider';
 import { Layout } from './components/Layout';
@@ -16,7 +14,8 @@ const App = () => (
         <ToDoProvider>
           <Routes>
             <Route path='/' element={<Main />} />
-            <Route path='/add-task' element={<NewTask />} /> 
+            <Route path='/add-task' element={<NewTask />} />
+            <Route path='/task:id' element={null} />
           </Routes>
         </ToDoProvider>
       </Router>

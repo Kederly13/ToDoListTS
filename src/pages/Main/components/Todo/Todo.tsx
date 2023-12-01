@@ -1,5 +1,6 @@
 import { ITodo } from 'ToDoProvider/ToDoProvider';
 import { TagItems } from './components/TagItems';
+import { TodoBtns } from './components/TodoBtns/TodoBtns';
 
 import up from '../../../../components/assets/svg/up.svg'
 import move from '../../../../components/assets/svg/move.svg'
@@ -12,10 +13,9 @@ export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, tags }
         <div className={classes.todo} role='button' tabIndex={0} key={id}>
             <div className={classes.todo__header}>
                 <h3 className={classes.todo__title}>{title}</h3>
-                <div className={classes.todo__buttons}>
-                    <button type='button' />
-                    <button type='button' />
-                </div>
+                <TodoBtns
+                    id={id} 
+                />
             </div>
             <ul className={classes.todo__infoList}>
                 <li className={classes.todo__infoList__item}>

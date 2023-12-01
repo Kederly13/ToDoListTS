@@ -1,14 +1,14 @@
 import { createContext, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReactNode } from 'react';
-import { ICheckItem } from 'components/Form/Form';
+import { ICheckItem } from 'components/forms/NewTaskForm/NewTaskForm';
 
 type TodoProviderParams = {
     children: ReactNode;
 };
 
 export interface ITodo {
-    id?: string;
+    id: string;
     title: string;
     dueDate: string;
     dueTime: string

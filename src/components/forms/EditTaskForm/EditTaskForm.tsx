@@ -3,23 +3,23 @@ import { useContext } from "react";
 import { uid } from 'uid';
 import { useNavigate } from 'react-router-dom';
 
-import { DateInputs } from './components/DateInputs';
-import { TaskNameInput } from './components/TaskNameInput';
-import { Priority } from './components/Priority';
-import { Complexity } from './components/Complexity';
-import { SaveTaskBtn } from './components/SaveTaskBtn';
+import { DateInputs } from '../components/DateInputs';
+import { TaskNameInput } from '../components/TaskNameInput';
+import { Priority } from '../components/Priority';
+import { Complexity } from '../components/Complexity';
+import { SaveTaskBtn } from '../components/SaveTaskBtn';
 import { ToDoProvider, TodoContext } from 'ToDoProvider';
-import { Tags } from './components/Tags';
-import { CheckList } from './components/CheckList/CheckList';
-import classes from './Form.module.sass';
+import { Tags } from '../components/Tags';
+import { CheckList } from '../components/CheckList/CheckList';
+
+import classes from './NewTaskForm.module.sass';
 
 export interface ICheckItem {
     id: string,
     value: string
 };
 
-
-export const Form = () => {
+export const EditTaskForm = () => {
 
     const [taskName, setTaskName] = useState('');
     const [dueDate, setDueDate] = useState('');
@@ -115,7 +115,6 @@ export const Form = () => {
             return item;
         }));
     };
-
 
     return (
         <ToDoProvider>

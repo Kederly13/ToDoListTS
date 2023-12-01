@@ -14,7 +14,6 @@ import classes from './main.module.sass';
 export const Main = () => {
     const todoContext = useContext(TodoContext);
     console.log(todoContext?.todos);
-    // const { todos } = useContext(TodoContext);
 
     const navigate = useNavigate();
 
@@ -28,6 +27,7 @@ export const Main = () => {
                         {todoContext.todos.map((todo) => (
                             <li key={todo.id}>
                                 <Todo
+                                    id={todo.id}
                                     title={todo.title}
                                     dueDate={todo.dueDate}
                                     dueTime={todo.dueTime}

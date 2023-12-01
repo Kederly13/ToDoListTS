@@ -1,7 +1,7 @@
 import { useNavigate} from 'react-router-dom';
 import { ToDoProvider } from 'ToDoProvider';
 
-import { Form } from '../../components/Form';
+import { NewTaskForm } from 'components/forms/NewTaskForm';
 import Arrow from './Arrow.svg';
 
 import classes from './NewTask.module.sass';
@@ -27,7 +27,7 @@ export const NewTask = () => {
                         <h1 className={classes.newTask__title}>Add New Task</h1>
                     </div>
                     <div className={classes.body}>
-                        <Form />
+                        <NewTaskForm />
                     </div>
                 </div>
             </div>

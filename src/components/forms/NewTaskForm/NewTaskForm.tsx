@@ -33,34 +33,34 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
     const [taskExists, setTaskExists] = useState<boolean>(false);
     const [priority, setPriority] = useState<number>(task?.priority || 5);
     const [complexity, setComplexity] = useState<number>(task?.complexity || 5);
-    const [checklist, setChecklist] = useState<ICheckItem[]>(!!task?.checkList?.length && task.checkList || []);
-    const [tags, setTags] = useState<string[]>(!!task?.tags?.length && task.tags || []);
+    const [checklist, setChecklist] = useState<ICheckItem[]>((!!task?.checkList?.length && task.checkList) || []);
+    const [tags, setTags] = useState<string[]>((!!task?.tags?.length && task.tags) || []);
 
     const todoContext = useContext(TodoContext);
     const navigate = useNavigate();
 
     const handleEditTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-            if (task) {
-                const updatedTodos = todoContext?.todos.map((todo) => {
-                    if (todo.id === task.id) {
-                        return {
-                            ...todo,
-                            id: uid(),
-                            title: taskName,
-                            dueDate: dueDate,
-                            dueTime: dueTime,
-                            priority: priority,
-                            complexity: complexity,
-                            checkList: checklist,
-                            tags: tags
-                        };
-                    }
-                    return todo;
-                });
-            }
-            
-        todoContext?.saveTodo(updatedTodos);
+        let updatedTodos: ITodo[] = [];
+        if (task && todoContext && todoContext.todos) {
+            updatedTodos = todoContext.todos.map((todo) => {
+                if (todo.id === task.id) {
+                    return {
+                        ...todo,
+                        title: taskName,
+                        dueDate: dueDate,
+                        dueTime: dueTime,
+                        priority: priority,
+                        complexity: complexity,
+                        checkList: checklist,
+                        tags: tags
+                    };
+                }
+                return todo;
+            });
+        }
+        todoContext?.updateTodo(updatedTodos);
+        navigate('/');    
     };
 
     const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,7 +76,8 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
                 priority: priority,
                 complexity: complexity,
                 checkList: checklist,
-                tags: tags
+                tags: tags,
+                isClicked: false
             };
             todoContext?.saveTodo(newTodo);
             setTaskName('');
@@ -148,8 +149,11 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
 
     return (
         <ToDoProvider>
-            <form className={classes.form} onSubmit={task ? handleAddTask : handleAddTask}>
-            <TaskNameInput value={taskName} setValue={handleTaskNameChange}/>
+            <form className={classes.form} onSubmit={task ? handleEditTask : handleAddTask}>
+                <TaskNameInput 
+                    value={taskName} 
+                    setValue={handleTaskNameChange} 
+                />
                 <DateInputs 
                     onDateChange={handleDueDateChange} 
                     onTimeChange={handleDueTimeChange}

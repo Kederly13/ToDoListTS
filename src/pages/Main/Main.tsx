@@ -35,6 +35,7 @@ export const Main = () => {
                                     complexity={todo.complexity}
                                     checkList={todo.checkList}
                                     tags={todo.tags}
+                                    isClicked={todo.isClicked}
                                 />
                             </li>
                         ))}

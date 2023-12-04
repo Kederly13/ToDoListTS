@@ -1,5 +1,4 @@
-import { createContext, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { createContext, useState } from 'react';
 import { ReactNode } from 'react';
 import { ICheckItem } from 'components/forms/NewTaskForm/NewTaskForm';
 
@@ -15,35 +14,34 @@ export interface ITodo {
     priority?: number;
     complexity?: number;
     tags?: string[];
-    checkList?: ICheckItem[];  
+    checkList?: ICheckItem[];
+    isClicked: boolean  
 };
 
 type TodoContextType = {
     todos: ITodo[];
     saveTodo: (todo: ITodo) => void;
-    // updateTodo: (id: number) => void;
+    updateTodo: (todos: ITodo[]) => void;
     // deleteTodo: (id: number) => void;
-};
-
-type Id = {
-    id: string;
 };
 
 export const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
-    const { id } = useParams<Id>();
     const [todos, setTodos] = useState<ITodo[]>([]);
 
     const saveTodo = (todo: ITodo) => {
-        const newTodo = [...todos, todo];
         setTodos((prevTodos) => [
             ...prevTodos, todo
         ]);
     };
 
+    const updateTodo = (todos: ITodo[]) => {
+        setTodos(todos)
+    };
+    
     return (
-        <TodoContext.Provider value={{ todos, saveTodo }}>
+        <TodoContext.Provider value={{ todos, saveTodo, updateTodo }}>
             {children}
         </TodoContext.Provider>
     );

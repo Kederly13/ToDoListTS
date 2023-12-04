@@ -6,7 +6,7 @@ import { Main } from './pages/Main';
 import { NewTask } from 'pages/NewTask';
 import { EditTask } from 'pages/EditTask/EditTask';
 
-import './App.scss';
+import './App.sass';
 
 const App = () => (
   <>

@@ -3,8 +3,9 @@ import { useContext } from 'react';
 
 import { TodoContext} from '../../ToDoProvider';
 
-import { EditTaskForm } from "components/forms/EditTaskForm";
 import { NewTaskForm } from 'components/forms/NewTaskForm';
+
+import classes from './EditTask.module.sass';
 
 export const EditTask = () => {
 
@@ -13,13 +14,13 @@ export const EditTask = () => {
 
     const task = todoContext && todoContext.todos.find(task => task.id === id);
 
-    console.log(task);
-
     return (
-        <section>
-            <NewTaskForm
-                task={task}
-            />
+        <section className={classes.editSection}>
+            <div className={classes.container}>
+                <NewTaskForm
+                    task={task}
+                />
+            </div>
         </section>
     )
 }

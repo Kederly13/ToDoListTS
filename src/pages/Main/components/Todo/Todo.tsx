@@ -2,9 +2,9 @@ import { ITodo } from 'ToDoProvider/ToDoProvider';
 import { TagItems } from './components/TagItems';
 import { TodoBtns } from './components/TodoBtns/TodoBtns';
 
-import up from '../../../../components/assets/svg/up.svg'
-import move from '../../../../components/assets/svg/move.svg'
-import calendar from '../../../../components/assets/svg/calendar.svg'
+import { Move } from 'components/assets/svg/Move';
+import { Up } from 'components/assets/svg/Up'
+import { Calendar } from 'components/assets/svg/Calendar';
 
 import classes from './Todo.module.sass';
 
@@ -19,15 +19,15 @@ export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, tags }
             </div>
             <ul className={classes.todo__infoList}>
                 <li className={classes.todo__infoList__item}>
-                    <img src={calendar} alt='calendar' className={classes.todo__infoList__icon}/>
+                    <Calendar className={classes.todo__infoList__icon} />
                     Due Date: <span className={classes.todo__date}>{dueDate}, {dueTime}</span>
                 </li>
                 <li className={classes.todo__infoList__item}>
-                    <img src={up} alt='up' className={classes.todo__infoList__icon}/>
+                    <Up className={classes.todo__infoList__icon} />
                     Priority: {priority}
                 </li>
                 <li className={classes.todo__infoList__item}>
-                    <img src={move} alt='move' className={classes.todo__infoList__icon}/>
+                    <Move className={classes.todo__infoList__icon} />
                     Complexity: {complexity}
                 </li>
             </ul>

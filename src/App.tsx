@@ -4,6 +4,7 @@ import { ToDoProvider } from 'ToDoProvider';
 import { Layout } from './components/Layout';
 import { Main } from './pages/Main';
 import { NewTask } from 'pages/NewTask';
+import { EditTask } from 'pages/EditTask/EditTask';
 
 import './App.scss';
 
@@ -15,7 +16,7 @@ const App = () => (
           <Routes>
             <Route path='/' element={<Main />} />
             <Route path='/add-task' element={<NewTask />} />
-            <Route path='/task:id' element={null} />
+            <Route path='/task/:id' element={<EditTask />} />
           </Routes>
         </ToDoProvider>
       </Router>

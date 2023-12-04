@@ -4,11 +4,12 @@ import { Input } from '../Input';
 
 interface ITagsProps {
     setValue: (value: string) => void;
+    value?: string
 };
 
-export const Tags = ({ setValue }: ITagsProps) => {
+export const Tags = ({ setValue, value }: ITagsProps) => {
 
-    const [tagValue, setTagValue] = useState('');
+    const [tagValue, setTagValue] = useState(value ?? '');
 
     const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
        const value = e.target.value;
@@ -18,6 +19,7 @@ export const Tags = ({ setValue }: ITagsProps) => {
     
     return (
         <Input
+        
             value={tagValue}
             onChange={handleTagChange}
             label="Add Tags"

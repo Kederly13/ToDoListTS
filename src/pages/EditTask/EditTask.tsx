@@ -1,25 +1,25 @@
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 
-import { TodoContext, ITodo } from '../../ToDoProvider';
+import { TodoContext} from '../../ToDoProvider';
 
 import { EditTaskForm } from "components/forms/EditTaskForm";
+import { NewTaskForm } from 'components/forms/NewTaskForm';
 
-const EditTask = () => {
+export const EditTask = () => {
 
     const { id } = useParams();
     const todoContext = useContext(TodoContext);
 
-    if (!todoContext) {
-        // Handle the case where todoContext is null (e.g., return an error message)
-        return <p>Todo context is null</p>;
-    }
+    const task = todoContext && todoContext.todos.find(task => task.id === id);
 
-    const task = todoContext.find(task => task.id === id)
+    console.log(task);
 
     return (
         <section>
-
+            <NewTaskForm
+                task={task}
+            />
         </section>
     )
 }

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useContext } from "react";
+import { useState, useContext, type FC } from 'react';
+
 import { uid } from 'uid';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import { ToDoProvider, TodoContext } from 'ToDoProvider';
 import { Tags } from '../components/Tags';
 import { CheckList } from '../components/CheckList/CheckList';
 
+import { ITodo } from 'ToDoProvider/ToDoProvider';
 import classes from './NewTaskForm.module.sass';
 
 export interface ICheckItem {
@@ -19,24 +20,53 @@ export interface ICheckItem {
     value: string
 };
 
-export const NewTaskForm = () => {
+interface INewTaskFormProps {
+    task?: ITodo;
+};
 
-    const [taskName, setTaskName] = useState('');
-    const [dueDate, setDueDate] = useState('');
-    const [dueTime, setDueTime] = useState('');
-    const [taskExists, setTaskExists] = useState('');
-    const [priority, setPriority] = useState<number>();
-    const [complexity, setComplexity] = useState<number>();
-    const [checklist, setChecklist] = useState<ICheckItem[]>([]);
-    const [tags, setTags] = useState<string[]>([]);
+
+export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
+
+    const [taskName, setTaskName] = useState<string>(task?.title ?? '');
+    const [dueDate, setDueDate] = useState<string>(task?.dueDate ?? '');
+    const [dueTime, setDueTime] = useState<string>(task?.dueTime ?? '');
+    const [taskExists, setTaskExists] = useState<boolean>(false);
+    const [priority, setPriority] = useState<number>(task?.priority || 5);
+    const [complexity, setComplexity] = useState<number>(task?.complexity || 5);
+    const [checklist, setChecklist] = useState<ICheckItem[]>(!!task?.checkList?.length && task.checkList || []);
+    const [tags, setTags] = useState<string[]>(!!task?.tags?.length && task.tags || []);
 
     const todoContext = useContext(TodoContext);
     const navigate = useNavigate();
 
+    const handleEditTask = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+            if (task) {
+                const updatedTodos = todoContext?.todos.map((todo) => {
+                    if (todo.id === task.id) {
+                        return {
+                            ...todo,
+                            id: uid(),
+                            title: taskName,
+                            dueDate: dueDate,
+                            dueTime: dueTime,
+                            priority: priority,
+                            complexity: complexity,
+                            checkList: checklist,
+                            tags: tags
+                        };
+                    }
+                    return todo;
+                });
+            }
+            
+        todoContext?.saveTodo(updatedTodos);
+    };
+
     const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (todoContext?.todos.some((todo) => taskName === todo.title)) {
-            setTaskExists('yes');
+            setTaskExists(true);
         } else {
             const newTodo = {
                 id: uid(),
@@ -118,7 +148,7 @@ export const NewTaskForm = () => {
 
     return (
         <ToDoProvider>
-            <form className={classes.form} onSubmit={handleAddTask}>
+            <form className={classes.form} onSubmit={task ? handleAddTask : handleAddTask}>
             <TaskNameInput value={taskName} setValue={handleTaskNameChange}/>
                 <DateInputs 
                     onDateChange={handleDueDateChange} 

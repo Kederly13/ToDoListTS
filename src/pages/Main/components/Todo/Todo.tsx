@@ -8,9 +8,12 @@ import { Calendar } from 'components/assets/svg/Calendar';
 
 import classes from './Todo.module.sass';
 
-export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, tags } : ITodo) => {
+export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, tags, isClicked } : ITodo) => {
+
+    const todoClasses = `${classes.todo} ${isClicked ? classes.clicked : ''}`
+
     return (
-        <div className={classes.todo} role='button' tabIndex={0} key={id}>
+        <div className={todoClasses} role='button' tabIndex={0} key={id}>
             <div className={classes.todo__header}>
                 <h3 className={classes.todo__title}>{title}</h3>
                 <TodoBtns

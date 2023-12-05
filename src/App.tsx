@@ -17,6 +17,7 @@ const App = () => (
             <Route path='/' element={<Main />} />
             <Route path='/add-task' element={<NewTask />} />
             <Route path='/task/:id' element={<EditTask />} />
+            <Route path='/task/:id' element={null} />
           </Routes>
         </ToDoProvider>
       </Router>

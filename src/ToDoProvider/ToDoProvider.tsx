@@ -22,7 +22,7 @@ type TodoContextType = {
     todos: ITodo[];
     saveTodo: (todo: ITodo) => void;
     updateTodo: (todos: ITodo[]) => void;
-    // deleteTodo: (id: number) => void;
+    handleToggle: (id: string) => void;
 };
 
 export const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -39,9 +39,23 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
     const updateTodo = (todos: ITodo[]) => {
         setTodos(todos)
     };
+
+    const handleToggle = (id: string) => {
+        setTodos((prevTodos) => {
+            return prevTodos.map((todo) => {
+                if (todo.id === id) {
+                    return {
+                        ...todo,
+                        isClicked: !todo.isClicked
+                    };
+                }
+                return todo
+            });
+        });
+    };
     
     return (
-        <TodoContext.Provider value={{ todos, saveTodo, updateTodo }}>
+        <TodoContext.Provider value={{ todos, saveTodo, updateTodo, handleToggle }}>
             {children}
         </TodoContext.Provider>
     );

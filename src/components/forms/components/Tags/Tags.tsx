@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 import { Input } from '../Input';
 
@@ -7,7 +7,7 @@ interface ITagsProps {
     value?: string
 };
 
-export const Tags = ({ setValue, value }: ITagsProps) => {
+export const Tags: React.FC<ITagsProps> = ({ setValue, value }) => {
 
     const [tagValue, setTagValue] = useState(value ?? '');
 
@@ -19,7 +19,6 @@ export const Tags = ({ setValue, value }: ITagsProps) => {
     
     return (
         <Input
-        
             value={tagValue}
             onChange={handleTagChange}
             label="Add Tags"

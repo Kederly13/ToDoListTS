@@ -1,16 +1,11 @@
-import { useState } from 'react';
-import classNames from 'classnames';
-
 import classes from './Priority.module.sass';
-
-
 
 interface IComplexityProps {
     complexity?: number;
     setComplexity: (newValue: number) => void;
-}
+};
 
-export const Complexity = ({ complexity, setComplexity }: IComplexityProps) => {
+export const Complexity: React.FC<IComplexityProps> = ({ complexity, setComplexity }) => {
     const numbers = [1,2,3,4,5,6,7,8,9,10];
 
     const handleComplexityChange = (event: React.ChangeEvent<HTMLInputElement>) => {

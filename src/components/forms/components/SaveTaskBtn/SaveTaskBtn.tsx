@@ -1,6 +1,3 @@
-import { useContext } from 'react';
-import React from 'react';
-
 import classes from './SaveTaskButton.module.sass'; 
 
 export const SaveTaskBtn = () => ( 

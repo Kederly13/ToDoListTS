@@ -39,7 +39,6 @@ export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, tags, 
                     tags={tags}
                 />
             }
-            {/* <button aria-label='add subtask' title=''></button> */}
         </div>
     );
 };

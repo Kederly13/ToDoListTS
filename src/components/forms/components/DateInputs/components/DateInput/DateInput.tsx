@@ -5,7 +5,7 @@ interface DateInputProps {
     dueDate: string
 };
 
-export const DateInput = ({ dueDate, onChange }: DateInputProps) => (
+export const DateInput: React.FC<DateInputProps> = ({ dueDate, onChange }) => (
     <div className={classes.date}>
         <label htmlFor='date' className={classes.date__label}>Select Due Date</label>
         <input

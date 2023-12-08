@@ -1,16 +1,11 @@
-import { useState } from 'react';
-import classNames from 'classnames';
-
 import classes from './Priority.module.sass';
-
-
 
 interface IPriorityProps {
     priority?: number;
     setPriority: (newValue: number) => void;
 }
 
-export const Priority = ({ priority, setPriority }: IPriorityProps) => {
+export const Priority: React.FC<IPriorityProps> = ({ priority, setPriority }) => {
     const numbers = [1,2,3,4,5,6,7,8,9,10];
 
     const handlePriorityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +14,6 @@ export const Priority = ({ priority, setPriority }: IPriorityProps) => {
             setPriority(Number(value));
         };  
     };
-
 
     return (
         <div className={classes.priority}>

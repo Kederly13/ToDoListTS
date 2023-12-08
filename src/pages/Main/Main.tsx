@@ -14,14 +14,37 @@ import classes from './main.module.sass';
 export const Main = () => {
     const todoContext = useContext(TodoContext);
     const [filteredTodos, setFilteredTodos] = useState<ITodo[]>([]);
-    console.log(todoContext?.todos);
-    console.log(filteredTodos);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+    // console.log(todoContext?.todos);
+    console.log(selectedCategories);
+
+    // const addCategory = (value: string) => {
+    //     setCategoryTodos(value);
+    // }
+
+    // const filterTodos = (value: string) => {
+    //     const filteredList = todoContext?.todos.filter(({ title }) => {
+    //         return title.toLocaleLowerCase().includes(value.toLowerCase());
+    //     });
+    //     setFilteredTodos(filteredList || [])
+    // };
 
     const filterTodos = (value: string) => {
-        const filteredList = todoContext?.todos.filter(({ title }) => {
-            return title.toLocaleLowerCase().includes(value.toLowerCase());
-        });
-        setFilteredTodos(filteredList || [])
+        let filteredList: ITodo[] = [];
+    
+        if (selectedCategories.length > 0) {
+            filteredList = todoContext?.todos.filter(todo =>
+                todo.title.toLowerCase().includes(value.toLowerCase()) &&
+                selectedCategories.some(category => (todo.tags || []).includes(category))
+            ) || [];
+        } else {
+            filteredList = todoContext?.todos.filter(todo =>
+                todo.title.toLowerCase().includes(value.toLowerCase())
+            ) || [];
+        }
+    
+        setFilteredTodos(filteredList);
     };
 
     const navigate = useNavigate();
@@ -32,10 +55,12 @@ export const Main = () => {
                 <SearchForm
                     filterTodos={filterTodos}
                 />
-                <Buttons />
+                <Buttons
+                    setSelectedCategories={setSelectedCategories}
+                />
                 <ul className={classes.todoList}>
                     {(filteredTodos.length > 0 ? filteredTodos : todoContext?.todos || []).map(todo => (
-                        <li key={todo.id}>
+                        <li key={todo.id} onClick={() => navigate(`/task-detail/${todo.id}`)}>
                             <Todo
                                 id={todo.id}
                                 title={todo.title}

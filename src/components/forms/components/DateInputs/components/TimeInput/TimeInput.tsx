@@ -1,5 +1,3 @@
-import Clock from './clock.svg';
-
 import classes from './TimeInput.module.sass';
 
 interface DateInputProps {

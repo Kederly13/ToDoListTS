@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Arrow from './down.svg';
-
-import classes from './CategoryButton.module.sass';
 import { CategoryMenu } from './components/CategoryMenu';
 
-export const CategoryButton = () => {
+import { ICategories } from './components/CategoryMenu/CategoryMenu';
+import classes from './CategoryButton.module.sass';
+import Arrow from './down.svg';
+
+export const CategoryButton: React.FC< ICategories> = ({ setSelectedCategories }) => {
 
   const [isActiveMenu, setActiveMenu] = useState(false);
 
@@ -18,7 +19,7 @@ export const CategoryButton = () => {
         <span className={classes.category__btnName}>Category</span>
         <img src={Arrow} alt='arrow' className={`${classes.category__btnIcon} ${isActiveMenu ? classes.active : ''}`} />
       </button>
-      {isActiveMenu ? <CategoryMenu /> : ''}
+      {isActiveMenu ? <CategoryMenu setSelectedCategories={setSelectedCategories}/> : ''}
     </div>
   );  
 };

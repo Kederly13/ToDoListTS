@@ -5,7 +5,7 @@ import { Input } from '../Input/Input';
 
 import classes from './CheckList.module.sass';
 
-interface CheckListProps {
+interface ICheckListProps {
     newSubtask: boolean,
     addCheckItem: (value: string) => void,
     removeCheckItem: (id: string) => void,
@@ -13,7 +13,7 @@ interface CheckListProps {
     checkList: ICheckItem[] 
 };
 
-export const CheckList = ({ addCheckItem, removeCheckItem, updateCheckItemValue, checkList }: CheckListProps) => {
+export const CheckList: React.FC<ICheckListProps> = ({ addCheckItem, removeCheckItem, updateCheckItemValue, checkList }) => {
     const [newSubtask, setNewSubtask] = useState('');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

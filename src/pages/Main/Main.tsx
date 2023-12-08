@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { MouseEvent } from 'react';
 
 import { SearchForm } from './components/SearchForm';
 import { Buttons } from './components/Buttons';
 import { NewTaskBtn } from './components/NewTaskBtn';
 import { Todo } from './components/Todo';
 import { ITodo } from 'ToDoProvider/ToDoProvider';
-import { useContext, useState } from 'react';
+import { MouseEventHandler, useContext, useState } from 'react';
 
 import { TodoContext } from '../../ToDoProvider';
 
@@ -13,22 +14,25 @@ import classes from './main.module.sass';
 
 export const Main = () => {
     const todoContext = useContext(TodoContext);
-    const [filteredTodos, setFilteredTodos] = useState<ITodo[]>([]);
+    const [filteredTodos, setFilteredTodos] = useState<ITodo[]>(todoContext?.todos || []);
+    
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     // console.log(todoContext?.todos);
-    console.log(selectedCategories);
+    
 
     // const addCategory = (value: string) => {
     //     setCategoryTodos(value);
     // }
 
-    // const filterTodos = (value: string) => {
-    //     const filteredList = todoContext?.todos.filter(({ title }) => {
-    //         return title.toLocaleLowerCase().includes(value.toLowerCase());
-    //     });
-    //     setFilteredTodos(filteredList || [])
-    // };
+    const searchTodos = (value: string) => {
+        setFilteredTodos(prev => [...prev].filter(({ title }) => {
+            console.log(title, value);
+            return title.toLocaleLowerCase().includes(value.toLowerCase());
+        }));
+        
+    };
+    console.log(filteredTodos);
 
     const filterTodos = (value: string) => {
         let filteredList: ITodo[] = [];
@@ -49,18 +53,23 @@ export const Main = () => {
 
     const navigate = useNavigate();
 
+    const handleNavigate = (e: MouseEvent<HTMLDivElement>, id: string) => {
+        e.stopPropagation()
+        navigate(`/task-detail/${id}`)
+    };
+
     return (
         <section className={classes.main}>
             <div className={classes.container}>
                 <SearchForm
-                    filterTodos={filterTodos}
+                    filterTodos={searchTodos}
                 />
                 <Buttons
                     setSelectedCategories={setSelectedCategories}
                 />
-                <ul className={classes.todoList}>
+                <div className={classes.todoList}>
                     {(filteredTodos.length > 0 ? filteredTodos : todoContext?.todos || []).map(todo => (
-                        <li key={todo.id} onClick={() => navigate(`/task-detail/${todo.id}`)}>
+                        <div key={todo.id} onClick={(e) => handleNavigate(e, todo.id)}>
                             <Todo
                                 id={todo.id}
                                 title={todo.title}
@@ -72,9 +81,9 @@ export const Main = () => {
                                 tags={todo.tags}
                                 isClicked={todo.isClicked}
                             />
-                        </li>
+                        </div>
                     ))} 
-                </ul>
+                </div>
 
                 <NewTaskBtn onClick={() => navigate('/add-task')}>
                     <span>+ add new task </span>

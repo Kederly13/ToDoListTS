@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 import { ReactNode } from 'react';
-import { ICheckItem } from 'components/forms/NewTaskForm/NewTaskForm';
+import { ICheckItem } from 'components/TaskForm/NewTaskForm';
 
 type TodoProviderParams = {
     children: ReactNode;
@@ -9,8 +9,7 @@ type TodoProviderParams = {
 export interface ITodo {
     id: string;
     title: string;
-    dueDate: string;
-    dueTime: string
+    dueDateTime: Date | null;
     priority?: number;
     complexity?: number;
     tags?: string[];

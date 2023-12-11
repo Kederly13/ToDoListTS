@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import { TodoContext} from '../../ToDoProvider';
 
-import { NewTaskForm } from 'components/forms/NewTaskForm';
+import { NewTaskForm } from 'components/TaskForm';
 
 import classes from './EditTask.module.sass';
 

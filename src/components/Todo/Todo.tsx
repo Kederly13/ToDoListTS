@@ -8,7 +8,10 @@ import { Calendar } from 'components/assets/svg/Calendar';
 
 import classes from './Todo.module.sass';
 
-export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, tags, isClicked } : ITodo) => {
+export const Todo = ({ id, title, dueDateTime, priority, complexity, tags, isClicked } : ITodo) => {
+
+    const formattedDueDate = dueDateTime ? new Date(dueDateTime).toLocaleDateString() : 'No due date';
+    const formattedDueTime = dueDateTime ? new Date(dueDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'No due time';
 
     const todoClasses = `${classes.todo} ${isClicked ? classes.clicked : ''}`
 
@@ -23,7 +26,8 @@ export const Todo = ({ id, title, dueDate, dueTime, priority, complexity, tags, 
             <ul className={classes.todo__infoList}>
                 <li className={classes.todo__infoList__item}>
                     <Calendar className={classes.todo__infoList__icon} />
-                    Due Date: <span className={classes.todo__date}>{dueDate}, {dueTime}</span>
+                    Due Date: <span className={classes.todo__date}>{formattedDueDate && formattedDueDate} </span>
+                    Due Time: <span className={classes.todo__date}>{formattedDueTime && formattedDueTime}</span>
                 </li>
                 <li className={classes.todo__infoList__item}>
                     <Up className={classes.todo__infoList__icon} />

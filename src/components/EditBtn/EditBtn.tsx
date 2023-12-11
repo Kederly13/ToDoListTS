@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import edit from '../../../../../../../../components/assets/svg/Edit.svg'
+import { Edit } from 'components/assets/svg/Edit';
 
 export const EditBtn = ({ id }: {id: string}) => {
-
     const navigate = useNavigate();
+
     return (
         <button type='button' onClick={() => navigate(`/task/${id}`)}>
-            <img src={edit} alt='edit' />
+            <Edit />
         </button>
     );
 };

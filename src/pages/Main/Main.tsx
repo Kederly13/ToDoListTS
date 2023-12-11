@@ -4,11 +4,11 @@ import { MouseEvent } from 'react';
 import { SearchForm } from './components/SearchForm';
 import { Buttons } from './components/Buttons';
 import { NewTaskBtn } from './components/NewTaskBtn';
-import { Todo } from './components/Todo';
 import { ITodo } from 'ToDoProvider/ToDoProvider';
+import { Todo } from 'components/Todo';
 import { MouseEventHandler, useContext, useState } from 'react';
 
-import { TodoContext } from '../../ToDoProvider';
+import { TodoContext } from 'ToDoProvider';
 
 import classes from './main.module.sass';
 
@@ -57,7 +57,7 @@ export const Main = () => {
         e.stopPropagation()
         navigate(`/task-detail/${id}`)
     };
-
+    console.log(todoContext?.todos)
     return (
         <section className={classes.main}>
             <div className={classes.container}>
@@ -73,8 +73,7 @@ export const Main = () => {
                             <Todo
                                 id={todo.id}
                                 title={todo.title}
-                                dueDate={todo.dueDate}
-                                dueTime={todo.dueTime}
+                                dueDateTime={todo.dueDateTime}
                                 priority={todo.priority}
                                 complexity={todo.complexity}
                                 checkList={todo.checkList}
@@ -84,7 +83,6 @@ export const Main = () => {
                         </div>
                     ))} 
                 </div>
-
                 <NewTaskBtn onClick={() => navigate('/add-task')}>
                     <span>+ add new task </span>
                 </NewTaskBtn>

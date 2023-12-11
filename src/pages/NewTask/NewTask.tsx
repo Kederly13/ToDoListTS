@@ -1,4 +1,4 @@
-import { NewTaskForm } from 'components/forms/NewTaskForm';
+import { NewTaskForm } from 'components/TaskForm';
 import { BackBtn } from 'components/BackBtn/BackBtn';
 
 import classes from './NewTask.module.sass';

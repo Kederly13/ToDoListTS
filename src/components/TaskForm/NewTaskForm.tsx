@@ -3,14 +3,14 @@ import { useState, useContext, type FC } from 'react';
 import { uid } from 'uid';
 import { useNavigate } from 'react-router-dom';
 
-import { DateInputs } from '../components/DateInputs';
-import { TaskNameInput } from '../components/TaskNameInput';
-import { Priority } from '../components/Priority';
-import { Complexity } from '../components/Complexity';
-import { SaveTaskBtn } from '../components/SaveTaskBtn';
+import { DateInputs } from 'components/formComponents/DateInputs';
+import { TaskNameInput } from 'components/formComponents/TaskNameInput';
+import { Priority } from 'components/formComponents/Priority';
+import { Complexity } from 'components/formComponents/Complexity';
+import { SaveTaskBtn } from 'components/formComponents/SaveTaskBtn';
+import { Tags } from 'components/formComponents/Tags';
+import { CheckList } from 'components/formComponents/CheckList';
 import { ToDoProvider, TodoContext } from 'ToDoProvider';
-import { Tags } from '../components/Tags';
-import { CheckList } from '../components/CheckList/CheckList';
 
 import { ITodo } from 'ToDoProvider/ToDoProvider';
 import classes from './NewTaskForm.module.sass';
@@ -28,8 +28,10 @@ interface INewTaskFormProps {
 export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
 
     const [taskName, setTaskName] = useState<string>(task?.title ?? '');
-    const [dueDate, setDueDate] = useState<string>(task?.dueDate ?? '');
-    const [dueTime, setDueTime] = useState<string>(task?.dueTime ?? '');
+    const [dueDate, setDueDate] = useState<Date | null>(task?.dueDateTime ?? null);
+    const [dueTime, setDueTime] = useState<string>(
+        task?.dueDateTime ? task.dueDateTime.toISOString().split('T')[1] || '' : ''
+    );
     const [taskExists, setTaskExists] = useState<boolean>(false);
     const [priority, setPriority] = useState<number>(task?.priority || 5);
     const [complexity, setComplexity] = useState<number>(task?.complexity || 5);
@@ -41,6 +43,11 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
 
     const handleEditTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const combinedDateTime = dueDate && dueTime
+        ? new Date(`${dueDate.toISOString().split('T')[0]}T${dueTime}`)
+        : null;
+
         let updatedTodos: ITodo[] = [];
         if (task && todoContext && todoContext.todos) {
             updatedTodos = todoContext.todos.map((todo) => {
@@ -48,8 +55,7 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
                     return {
                         ...todo,
                         title: taskName,
-                        dueDate: dueDate,
-                        dueTime: dueTime,
+                        dueDateTime: combinedDateTime,
                         priority: priority,
                         complexity: complexity,
                         checkList: checklist,
@@ -65,14 +71,18 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
 
     const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const combinedDateTime = dueDate && dueTime
+        ? new Date(`${dueDate.toISOString().split('T')[0]}T${dueTime}`)
+        : null;
+
         if (todoContext?.todos.some((todo) => taskName === todo.title)) {
             setTaskExists(true);
         } else {
             const newTodo = {
                 id: uid(),
                 title: taskName,
-                dueDate: dueDate,
-                dueTime: dueTime,
+                dueDateTime: combinedDateTime,
                 priority: priority,
                 complexity: complexity,
                 checkList: checklist,
@@ -81,7 +91,7 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
             };
             todoContext?.saveTodo(newTodo);
             setTaskName('');
-            setDueDate('');
+            setDueDate(null);
             setDueTime('');
             navigate('/');  
         };   
@@ -91,8 +101,10 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
         setTaskName(newValue);
     };
 
-    const handleDueDateChange = (newValue: string) => {
-        setDueDate(newValue);
+    const handleDueDateChange = (newValue: Date | null) => {
+        if (newValue !== null) {
+            setDueDate(newValue);
+        }
     };
 
     const handleDueTimeChange = (newValue: string) => {

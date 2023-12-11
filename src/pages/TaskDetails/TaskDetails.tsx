@@ -1,10 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { TodoContext} from '../../ToDoProvider';
 
 import { BackBtn } from 'components/BackBtn/BackBtn';
-import { Todo } from 'pages/Main/components/Todo';
+import { Edit } from 'components/assets/svg/Edit';
+import { Todo } from 'components/Todo';
+import { TodoBtn } from 'components/TodoBtn';
 
 import classes from './TaskDetails.module.sass';
 
@@ -12,6 +15,7 @@ export const TaskDetails = () => {
 
     const { id } = useParams();
     const todoContext = useContext(TodoContext);
+    const navigate = useNavigate();
 
     const todo = todoContext && todoContext.todos?.find(task => task.id === id);
 
@@ -20,15 +24,18 @@ export const TaskDetails = () => {
             <div className={classes.container}>
                 <div className={classes.header}>
                     <BackBtn />
-                    <h1 className={classes.header__title}>Add New Task</h1>
+                    <h1 className={classes.header__title}>Task Details</h1>
+                    <TodoBtn
+                        icon={<Edit/>}
+                        handleButtonClick={() => navigate(`/task/${id}`)}
+                    />
                 </div>
                 <div className={classes.taskDetails}>
                     {todo ? (
                         <Todo
                             id={todo.id}
                             title={todo.title}
-                            dueDate={todo.dueDate}
-                            dueTime={todo.dueTime}
+                            dueDateTime={todo.dueDateTime}
                             priority={todo.priority}
                             complexity={todo.complexity}
                             isClicked={todo.isClicked}

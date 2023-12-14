@@ -1,6 +1,6 @@
 export enum SORT {
     ALL = '',
-    DATE_AND_TIME = 'dateTime',
+    DUE_DATE_TIME = 'dueDateTime',
     PRIORITY = 'priority',
     COMPLEXITY = 'complexity'
 };

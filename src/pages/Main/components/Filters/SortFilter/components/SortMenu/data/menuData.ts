@@ -8,12 +8,12 @@ export const menuData = [
     },
     {
         name: 'Ascending Date',
-        value: SORT.DATE_AND_TIME,
+        value: SORT.DUE_DATE_TIME,
         reversed: true
     },
     {
         name: 'Descending Date',
-        value: SORT.DATE_AND_TIME,
+        value: SORT.DUE_DATE_TIME,
         reversed: false
     },
     {

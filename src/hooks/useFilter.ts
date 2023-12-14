@@ -22,26 +22,14 @@ export const useFilterTasks = (): ITodo[] => {
 
             if (!!filteredByTagTasks?.length && filteredByTagTasks?.length >= 1) {
                 return [...filteredByTagTasks]?.sort((a, b) => {
-                    if (sorted === SORT.DATE_AND_TIME) {
-                        const aDate = new Date(a[sorted]) as any;
-                        const bDate = new Date(b[sorted]) as any;
+                    const aNum = a[sorted] as any;
+                    const bNum = b[sorted] as any;
 
-                        if (todoContext?.sort?.reversed) {
-                            return aDate - bDate
-                        }
-
-                        return bDate - aDate;
-
-                    } else {
-                        const aNum = Number(a[sorted]);
-                        const bNum = Number(b[sorted]);
-
-                        if (todoContext?.sort?.reversed) {
-                            return aNum - bNum;
-                        }
-
-                        return bNum - aNum;
+                    if (todoContext?.sort?.reversed) {
+                        return aNum - bNum;
                     }
+
+                    return bNum - aNum;
                 })
             } 
         }
@@ -55,7 +43,6 @@ export const useFilterTasks = (): ITodo[] => {
                 return title.toLocaleLowerCase().includes(todoContext.search.toLocaleLowerCase())
             });
         }
-
         return sortedTasks;
     }, [sortedTasks, todoContext?.search!]);
 

@@ -1,25 +1,27 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+
+import { TodoContext } from 'ToDoProvider';
 
 import Arrow from './svg/Arrow.svg';
 import SearchIcon from './svg/SearchIcon.svg';
 
 import classes from './searchForm.module.sass';
 
-interface ISearchFormProps {
-  filterTodos: (searchValue: string) => void;
-};
-
-const SearchForm: React.FC<ISearchFormProps> = ({ filterTodos }) => {
+const SearchForm: React.FC = () => {
+  const todoContext = useContext(TodoContext);
 
   const [value, setValue] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);  
+    setValue(e.target.value);
+    if (!e.target.value) {
+      todoContext?.setSearch(e.target.value);
+    }  
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    filterTodos(value);
+    todoContext?.setSearch(value);
   };
 
     return (

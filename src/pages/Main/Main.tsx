@@ -1,75 +1,43 @@
 import { useNavigate } from 'react-router-dom';
-import { MouseEvent } from 'react';
+import { useEffect } from 'react';
 
 import { SearchForm } from './components/SearchForm';
-import { Buttons } from './components/Buttons';
+import { Filters } from './components/Filters';
 import { NewTaskBtn } from './components/NewTaskBtn';
 import { ITodo } from 'ToDoProvider/ToDoProvider';
 import { Todo } from 'components/Todo';
-import { MouseEventHandler, useContext, useState } from 'react';
+import { useContext } from 'react';
+import { SORT } from 'constants/sort';
 
 import { TodoContext } from 'ToDoProvider';
+import { useFilterTasks } from 'hooks/useFilter';
 
 import classes from './main.module.sass';
 
+
 export const Main = () => {
     const todoContext = useContext(TodoContext);
-    const [filteredTodos, setFilteredTodos] = useState<ITodo[]>(todoContext?.todos || []);
-    
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
-    // console.log(todoContext?.todos);
-    
+    const navigate = useNavigate()
 
-    // const addCategory = (value: string) => {
-    //     setCategoryTodos(value);
-    // }
+    const filteredTasks = useFilterTasks();
 
-    const searchTodos = (value: string) => {
-        setFilteredTodos(prev => [...prev].filter(({ title }) => {
-            console.log(title, value);
-            return title.toLocaleLowerCase().includes(value.toLowerCase());
-        }));
-        
-    };
-    console.log(filteredTodos);
-
-    const filterTodos = (value: string) => {
-        let filteredList: ITodo[] = [];
-    
-        if (selectedCategories.length > 0) {
-            filteredList = todoContext?.todos.filter(todo =>
-                todo.title.toLowerCase().includes(value.toLowerCase()) &&
-                selectedCategories.some(category => (todo.tags || []).includes(category))
-            ) || [];
-        } else {
-            filteredList = todoContext?.todos.filter(todo =>
-                todo.title.toLowerCase().includes(value.toLowerCase())
-            ) || [];
+    useEffect(() => {
+        return () => {
+            todoContext?.setSearch('')
+            todoContext?.setSort({ sorted: SORT.ALL, reversed: false })
+            todoContext?.setFilterTag([])
         }
-    
-        setFilteredTodos(filteredList);
-    };
+    }, [])
 
-    const navigate = useNavigate();
-
-    const handleNavigate = (e: MouseEvent<HTMLDivElement>, id: string) => {
-        e.stopPropagation()
-        navigate(`/task-detail/${id}`)
-    };
-    console.log(todoContext?.todos)
     return (
         <section className={classes.main}>
             <div className={classes.container}>
-                <SearchForm
-                    filterTodos={searchTodos}
-                />
-                <Buttons
-                    setSelectedCategories={setSelectedCategories}
-                />
-                <div className={classes.todoList}>
-                    {(filteredTodos.length > 0 ? filteredTodos : todoContext?.todos || []).map(todo => (
-                        <div key={todo.id} onClick={(e) => handleNavigate(e, todo.id)}>
+                <SearchForm />
+                <Filters />
+                {!!filteredTasks &&
+                    <div className={classes.todoList}>
+                        {filteredTasks.map(todo => (
                             <Todo
                                 id={todo.id}
                                 title={todo.title}
@@ -80,9 +48,9 @@ export const Main = () => {
                                 tags={todo.tags}
                                 isClicked={todo.isClicked}
                             />
-                        </div>
-                    ))} 
-                </div>
+                        ))}
+                    </div> 
+                }
                 <NewTaskBtn onClick={() => navigate('/add-task')}>
                     <span>+ add new task </span>
                 </NewTaskBtn>

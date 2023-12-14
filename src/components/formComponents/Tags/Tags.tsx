@@ -8,13 +8,12 @@ interface ITagsProps {
 };
 
 export const Tags: React.FC<ITagsProps> = ({ setValue, value }) => {
-
     const [tagValue, setTagValue] = useState(value ?? '');
 
     const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-       const value = e.target.value;
+       const { value } = e.target;
        setTagValue(value);
-       setValue(tagValue);   
+       setValue(value);   
     };
     
     return (

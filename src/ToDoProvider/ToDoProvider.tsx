@@ -1,6 +1,7 @@
-import { createContext, useState } from 'react';
+import { SetStateAction, createContext, useState, Dispatch } from 'react';
 import { ReactNode } from 'react';
 import { ICheckItem } from 'components/TaskForm/NewTaskForm';
+import { SORT } from 'constants/sort';
 
 type TodoProviderParams = {
     children: ReactNode;
@@ -17,17 +18,33 @@ export interface ITodo {
     isClicked: boolean  
 };
 
+export interface ISort {
+    sorted: SORT,
+    reversed: boolean
+};
+
 type TodoContextType = {
     todos: ITodo[];
+    sort: ISort;
+    setSort: Dispatch<SetStateAction<ISort>>;
+    filterTag: string[];
+    setFilterTag: Dispatch<SetStateAction<string[]>>
+    search: string;
+    setSearch: Dispatch<SetStateAction<string>>
     saveTodo: (todo: ITodo) => void;
     updateTodo: (todos: ITodo[]) => void;
     handleToggle: (id: string) => void;
 };
 
-export const TodoContext = createContext<TodoContextType | undefined>(undefined);
+export const TodoContext = createContext<TodoContextType | null>(null);
 
 export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
-    const [todos, setTodos] = useState<ITodo[]>([]);
+    const defaultTasks = JSON.parse(localStorage.getItem('tasks')!) || [];
+
+    const [todos, setTodos] = useState<ITodo[]>(defaultTasks);
+    const [sort, setSort] = useState<ISort>({ sorted: SORT.ALL, reversed: false });
+    const [filterTag, setFilterTag] = useState<string[]>([]);
+    const [search, setSearch] = useState<string>('');
 
     const saveTodo = (todo: ITodo) => {
         setTodos((prevTodos) => [
@@ -52,9 +69,22 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
             });
         });
     };
+
+    const globalState: TodoContextType = {
+        todos,
+        saveTodo,
+        updateTodo,
+        handleToggle,
+        sort,
+        setSort,
+        filterTag,
+        setFilterTag,
+        search,
+        setSearch
+    };
     
     return (
-        <TodoContext.Provider value={{ todos, saveTodo, updateTodo, handleToggle }}>
+        <TodoContext.Provider value={globalState}>
             {children}
         </TodoContext.Provider>
     );

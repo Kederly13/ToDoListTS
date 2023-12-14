@@ -90,6 +90,13 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
                 isClicked: false
             };
             todoContext?.saveTodo(newTodo);
+
+            const localTasks: ITodo[] = JSON.parse(localStorage.getItem('tasks')!) || [];
+
+            localTasks.push(newTodo);
+
+            localStorage.setItem('tasks', JSON.stringify(localTasks));
+            
             setTaskName('');
             setDueDate(null);
             setDueTime('');

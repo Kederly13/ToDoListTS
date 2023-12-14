@@ -4,9 +4,9 @@ import { SortMenu } from './components/SortMenu';
 
 import Arrow from './down.svg';
 
-import classes from './SortButton.module.sass';
+import classes from './SortFilter.module.sass';
 
-export const SortButton = () => {
+export const SortFilter = () => {
 
   const [isActiveMenu, setActiveMenu] = useState(false);
 
@@ -20,7 +20,7 @@ export const SortButton = () => {
         <span className={classes.sort__btnName}>Sort</span>
         <img src={Arrow} alt='arrow' className={`${classes.sort__btnIcon} ${isActiveMenu ? classes.active : ''}`} />
       </button>
-      {isActiveMenu ? <SortMenu /> : ''}
+      {isActiveMenu && <SortMenu />}
     </div>
   );  
 }

@@ -17,6 +17,7 @@ import classes from './main.module.sass';
 
 export const Main = () => {
     const todoContext = useContext(TodoContext);
+    
 
     const navigate = useNavigate()
 
@@ -35,7 +36,7 @@ export const Main = () => {
             <div className={classes.container}>
                 <SearchForm />
                 <Filters />
-                {!!filteredTasks &&
+                {!!filteredTasks && Array.isArray(filteredTasks) &&
                     <div className={classes.todoList}>
                         {filteredTasks.map(todo => (
                             <Todo

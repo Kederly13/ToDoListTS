@@ -95,8 +95,7 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
 
             localTasks.push(newTodo);
 
-            localStorage.setItem('tasks', JSON.stringify(localTasks));
-            
+            localStorage.setItem('tasks', JSON.stringify(localStorage))
             setTaskName('');
             setDueDate(null);
             setDueTime('');

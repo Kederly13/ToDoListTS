@@ -17,8 +17,12 @@ export const EditTask = () => {
     return (
         <section className={classes.editSection}>
             <div className={classes.container}>
+                {task &&
                 <NewTaskForm
-                />
+                    // task={task}
+                /> 
+                }
+                
             </div>
         </section>
     )

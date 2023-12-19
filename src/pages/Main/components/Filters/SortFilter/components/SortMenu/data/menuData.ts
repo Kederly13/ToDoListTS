@@ -33,7 +33,7 @@ export const menuData = [
     },
     {
         name: 'Descending Complexity',
-        value: SORT.PRIORITY,
+        value: SORT.COMPLEXITY,
         reversed: false 
     }
 ];

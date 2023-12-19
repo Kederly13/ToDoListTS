@@ -6,6 +6,7 @@ import { TodoContext } from 'ToDoProvider';
 export const useFilterTasks = (): ITodo[] => {
     const todoContext = useContext(TodoContext);
     
+    
     const filteredByTagTasks = useMemo(() => {
         if(!!todoContext?.filterTag?.length) {
             return todoContext?.todos.filter(({ tags }) => {
@@ -14,7 +15,7 @@ export const useFilterTasks = (): ITodo[] => {
         }
 
         return todoContext?.todos;
-    }, [todoContext?.filterTag!, todoContext?.todos!])
+    }, [todoContext?.filterTag!, todoContext?.todos!]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const sortedTasks = useMemo(() => {
         if (todoContext?.sort?.sorted) {

@@ -4,7 +4,7 @@ import classes from './TodoBtn.module.sass';
 
 interface IEditBtnProps {
     id?: string;
-    icon: ReactElement;
+    icon?: ReactElement;
     handleButtonClick: () => void;
 };
 

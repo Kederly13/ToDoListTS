@@ -8,6 +8,7 @@ import { BackBtn } from 'components/BackBtn/BackBtn';
 import { Edit } from 'components/assets/svg/Edit';
 import { Todo } from 'components/Todo';
 import { TodoBtn } from 'components/TodoBtn';
+import { DeleteBtn } from 'components/DeleteBtn/DeleteBtn';
 
 import classes from './TaskDetails.module.sass';
 
@@ -44,6 +45,7 @@ export const TaskDetails = () => {
                         <p>No task found</p>
                     )}
                 </div>
+                <DeleteBtn />
             </div>
         </section>
     );

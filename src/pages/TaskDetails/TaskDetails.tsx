@@ -9,6 +9,8 @@ import { Edit } from 'components/assets/svg/Edit';
 import { Todo } from 'components/Todo';
 import { TodoBtn } from 'components/TodoBtn';
 import { DeleteBtn } from 'components/DeleteBtn/DeleteBtn';
+import { Input } from 'components/formComponents/Input';
+import { BtnCircle } from 'components/BtnCircle/BtnCircle';
 
 import classes from './TaskDetails.module.sass';
 
@@ -27,6 +29,20 @@ export const TaskDetails = () => {
             navigate('/')
         }
     };
+
+    const handleCommpleted = (id: string) => {
+        setTodos((prevTodos) => {
+            return prevTodos.map((todo) => {
+                if (todo.id === id) {
+                    return {
+                        ...todo,
+                        isClicked: !todo.isClicked
+                    };
+                }
+                return todo
+            });
+        });
+    }
 
     return (
         <section className={classes.main}>
@@ -53,6 +69,26 @@ export const TaskDetails = () => {
                         <p>No task found</p>
                     )}
                 </div>
+                <form>
+                    <h3></h3>
+                    <div>
+                        {todo && !!todo.checkList?.length && todo.checkList.map(({ id, value }) => (
+                            <Input
+                                key={id}
+                                id={id}
+                                value={value}
+                                readOnly
+                                buttonComponent={
+                                    <BtnCircle
+                                        icon={null}
+                                        onClick={handleCompleted} 
+                                    />
+                                }
+                            />
+                        ))}
+                    </div>
+                </form>
+                
                 <DeleteBtn
                     handleDelete={handleDelete} 
                 />

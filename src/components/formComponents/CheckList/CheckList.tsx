@@ -38,7 +38,7 @@ export const CheckList: React.FC<ICheckListProps> = ({ addCheckItem, removeCheck
                 buttonComponent={
                     <CheckListBtn
                         onClick={() => handleNewCheckItem(newSubtask)}
-                        sign='+'
+                        icon='+'
                     />
                 }
             />
@@ -52,7 +52,7 @@ export const CheckList: React.FC<ICheckListProps> = ({ addCheckItem, removeCheck
                         buttonComponent={
                             <CheckListBtn
                                 onClick={() => removeCheckItem(id)}
-                                sign='-'
+                                icon='-'
                             />
                         } 
                     />

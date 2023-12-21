@@ -8,11 +8,12 @@ interface IInput {
     id?: string;
     placeholder?: string;
     value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     buttonComponent?: ReactNode;
+    readOnly?: boolean;
 };
 
-export const Input: React.FC<IInput> = ({ htmlFor, id, placeholder, value, label, onChange, buttonComponent }) => (
+export const Input: React.FC<IInput> = ({ htmlFor, id, placeholder, value, label, onChange, buttonComponent, readOnly = false }) => (
     <div className={classes.inputItem}>
         <label htmlFor={htmlFor} className={classes.inputItem__label}>{label}</label>
         <div className={classes.inputItem__wrapper}>
@@ -22,6 +23,7 @@ export const Input: React.FC<IInput> = ({ htmlFor, id, placeholder, value, label
                 onChange={onChange}
                 value={value}
                 className={classes.inputItem__input}
+                readOnly={readOnly}
             />
             {buttonComponent && buttonComponent}
         </div> 

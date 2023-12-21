@@ -17,7 +17,8 @@ import classes from './NewTaskForm.module.sass';
 
 export interface ICheckItem {
     id: string,
-    value: string
+    value: string,
+    completed: boolean
 };
 
 interface INewTaskFormProps {
@@ -27,7 +28,7 @@ interface INewTaskFormProps {
 
 export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
     const [taskName, setTaskName] = useState<string>(task?.title ?? '');
-    const [dueDate, setDueDate] = useState<Date | null>(task?.dueDateTime ? new Date(task?.dueDateTime) : null);
+    const [dueDate, setDueDate] = useState<Date | null>(task?.dueDateTime ? new Date(task.dueDateTime) : null);
     const [dueTime, setDueTime] = useState<string>(
         task?.dueDateTime ? new Date(task?.dueDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) :
         '')
@@ -124,7 +125,8 @@ export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
             ...prev,
             {
                 id: uid(),
-                value
+                value,
+                completed: false
             }
         ]));
     };

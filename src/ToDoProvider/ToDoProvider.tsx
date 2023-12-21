@@ -1,6 +1,6 @@
 import { SetStateAction, createContext, useState, Dispatch } from 'react';
 import { ReactNode } from 'react';
-import { ICheckItem } from 'components/TaskForm/NewTaskForm';
+import { ICheckItem } from 'components/TaskForm/TaskForm';
 import { SORT } from 'constants/sort';
 
 type TodoProviderParams = {
@@ -10,7 +10,7 @@ type TodoProviderParams = {
 export interface ITodo {
     id: string;
     title: string;
-    dueDateTime: Date | null;
+    dueDateTime: string;
     priority?: number;
     complexity?: number;
     tags?: string[];
@@ -52,6 +52,7 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
         ]);
     };
 
+    
     const updateTodo = (todos: ITodo[]) => {
         setTodos(todos)
     };

@@ -25,13 +25,12 @@ interface INewTaskFormProps {
 };
 
 
-export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
-
+export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
     const [taskName, setTaskName] = useState<string>(task?.title ?? '');
-    const [dueDate, setDueDate] = useState<Date | null>(task?.dueDateTime ?? null);
+    const [dueDate, setDueDate] = useState<Date | null>(task?.dueDateTime ? new Date(task?.dueDateTime) : null);
     const [dueTime, setDueTime] = useState<string>(
-        task?.dueDateTime ? task.dueDateTime.toISOString().split('T')[1] || '' : ''
-    );
+        task?.dueDateTime ? new Date(task?.dueDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) :
+        '')
     const [taskExists, setTaskExists] = useState<boolean>(false);
     const [priority, setPriority] = useState<number>(task?.priority || 5);
     const [complexity, setComplexity] = useState<number>(task?.complexity || 5);
@@ -41,21 +40,21 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
     const todoContext = useContext(TodoContext);
     const navigate = useNavigate();
 
+    const dueDateTime = dueDate && dueTime
+            ? `${dueDate.toISOString().split('T')[0]}T${dueTime}`
+        : '';
+
     const handleEditTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const combinedDateTime = dueDate && dueTime
-        ? new Date(`${dueDate.toISOString().split('T')[0]}T${dueTime}`)
-        : null;
-
         let updatedTodos: ITodo[] = [];
-        if (task && todoContext && todoContext.todos) {
+        if (task && todoContext && todoContext?.todos) {
             updatedTodos = todoContext.todos.map((todo) => {
                 if (todo.id === task.id) {
                     return {
                         ...todo,
                         title: taskName,
-                        dueDateTime: combinedDateTime,
+                        dueDateTime,
                         priority: priority,
                         complexity: complexity,
                         checkList: checklist,
@@ -66,41 +65,36 @@ export const NewTaskForm: FC<INewTaskFormProps> = ({ task }) => {
             });
         }
         todoContext?.updateTodo(updatedTodos);
+
+        localStorage.setItem('tasks', JSON.stringify(updatedTodos));
+
         navigate('/');    
     };
 
     const handleAddTask = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const combinedDateTime = dueDate && dueTime
-        ? new Date(`${dueDate.toISOString().split('T')[0]}T${dueTime}`)
-        : null;
+        const newTodo = {
+            id: uid(),
+            title: taskName,
+            dueDateTime,
+            priority: priority,
+            complexity: complexity,
+            checkList: checklist,
+            tags: tags,
+            isClicked: false
+        };
+        todoContext?.saveTodo(newTodo);
 
-        if (todoContext?.todos.some((todo) => taskName === todo.title)) {
-            setTaskExists(true);
-        } else {
-            const newTodo = {
-                id: uid(),
-                title: taskName,
-                dueDateTime: combinedDateTime,
-                priority: priority,
-                complexity: complexity,
-                checkList: checklist,
-                tags: tags,
-                isClicked: false
-            };
-            todoContext?.saveTodo(newTodo);
+        const localTasks: ITodo[] = JSON.parse(localStorage.getItem('tasks')!) || [];
 
-            const localTasks: ITodo[] = JSON.parse(localStorage.getItem('tasks')!) || [];
+        localTasks.push(newTodo);
 
-            localTasks.push(newTodo);
-
-            localStorage.setItem('tasks', JSON.stringify(localStorage))
-            setTaskName('');
-            setDueDate(null);
-            setDueTime('');
-            navigate('/');  
-        };   
+        localStorage.setItem('tasks', JSON.stringify(localTasks));
+        setTaskName('');
+        setDueDate(null);
+        setDueTime('');
+        navigate('/');  
     };
 
     const handleTaskNameChange = (newValue: string) => {

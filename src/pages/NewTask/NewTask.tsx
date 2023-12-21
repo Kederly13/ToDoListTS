@@ -1,4 +1,4 @@
-import { NewTaskForm } from 'components/TaskForm';
+import { TaskForm } from 'components/TaskForm';
 import { BackBtn } from 'components/BackBtn/BackBtn';
 
 import classes from './NewTask.module.sass';
@@ -12,7 +12,7 @@ export const NewTask = () => (
                     <h1 className={classes.newTask__title}>Add New Task</h1>
                 </div>
                 <div className={classes.body}>
-                    <NewTaskForm />
+                    <TaskForm />
                 </div>
             </div>
         </div>

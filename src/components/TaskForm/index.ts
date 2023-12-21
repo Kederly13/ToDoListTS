@@ -1,1 +1,1 @@
-export { NewTaskForm } from './NewTaskForm';
+export { TaskForm } from './TaskForm';

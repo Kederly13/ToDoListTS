@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import { TodoContext} from '../../ToDoProvider';
 
-import { NewTaskForm } from 'components/TaskForm';
+import { TaskForm } from 'components/TaskForm';
 
 import classes from './EditTask.module.sass';
 
@@ -18,12 +18,11 @@ export const EditTask = () => {
         <section className={classes.editSection}>
             <div className={classes.container}>
                 {task &&
-                <NewTaskForm
-                    // task={task}
+                <TaskForm
+                    task={task}
                 /> 
                 }
-                
             </div>
         </section>
-    )
-}
+    );
+};

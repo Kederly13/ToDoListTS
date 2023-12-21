@@ -20,6 +20,14 @@ export const TaskDetails = () => {
 
     const todo = todoContext && todoContext.todos?.find(task => task.id === id);
 
+    const handleDelete = () => {
+        if (todoContext) {
+            const updatedTodos = todoContext.todos.filter(todo => todo.id !== id);
+            todoContext?.updateTodo(updatedTodos)
+            navigate('/')
+        }
+    };
+
     return (
         <section className={classes.main}>
             <div className={classes.container}>
@@ -45,7 +53,9 @@ export const TaskDetails = () => {
                         <p>No task found</p>
                     )}
                 </div>
-                <DeleteBtn />
+                <DeleteBtn
+                    handleDelete={handleDelete} 
+                />
             </div>
         </section>
     );

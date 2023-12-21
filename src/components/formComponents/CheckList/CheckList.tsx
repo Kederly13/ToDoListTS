@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ICheckItem } from 'components/TaskForm/NewTaskForm';
+import { ICheckItem } from 'components/TaskForm/TaskForm';
 import { CheckListBtn } from './components/CheckListBtn';
 import { Input } from '../Input/Input';
 

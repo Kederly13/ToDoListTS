@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { SearchForm } from './components/SearchForm';
 import { Filters } from './components/Filters';
 import { NewTaskBtn } from './components/NewTaskBtn';
-import { ITodo } from 'ToDoProvider/ToDoProvider';
 import { Todo } from 'components/Todo';
 import { useContext } from 'react';
 import { SORT } from 'constants/sort';

@@ -4,8 +4,7 @@ import { SORT } from 'constants/sort';
 import { TodoContext } from 'ToDoProvider';
 
 export const useFilterTasks = (): ITodo[] => {
-    const todoContext = useContext(TodoContext);
-    
+    const todoContext = useContext(TodoContext); 
     
     const filteredByTagTasks = useMemo(() => {
         if(!!todoContext?.filterTag?.length) {
@@ -14,8 +13,8 @@ export const useFilterTasks = (): ITodo[] => {
             })
         }
 
-        return todoContext?.todos;
-    }, [todoContext?.filterTag!, todoContext?.todos!]) // eslint-disable-line react-hooks/exhaustive-deps
+        return todoContext?.todos || [];
+    }, [todoContext?.filterTag, todoContext?.todos]) 
 
     const sortedTasks = useMemo(() => {
         if (todoContext?.sort?.sorted) {
@@ -23,20 +22,18 @@ export const useFilterTasks = (): ITodo[] => {
 
             if (!!filteredByTagTasks?.length && filteredByTagTasks?.length >= 1) {
                 return [...filteredByTagTasks]?.sort((a, b) => {
-                    const aNum = a[sorted] as any;
-                    const bNum = b[sorted] as any;
+                    const isDateTime = sorted === SORT.DUE_DATE_TIME;
 
-                    if (todoContext?.sort?.reversed) {
-                        return aNum - bNum;
-                    }
+                    const aEl = isDateTime ? new Date(a[sorted]) : a[sorted] as any;
+                    const bEl = isDateTime ? new Date(b[sorted]) : b[sorted] as any;
 
-                    return bNum - aNum;
+                    return todoContext?.sort?.reversed ? aEl - bEl : bEl - aEl;
                 })
             } 
         }
 
         return filteredByTagTasks;
-    }, [filteredByTagTasks, todoContext?.sort!]);
+    }, [filteredByTagTasks, todoContext?.sort]);
 
     const foundTasks = useMemo(() => {
         if (!!sortedTasks?.length && todoContext?.search) {
@@ -44,8 +41,9 @@ export const useFilterTasks = (): ITodo[] => {
                 return title.toLocaleLowerCase().includes(todoContext.search.toLocaleLowerCase())
             });
         }
-        return sortedTasks;
-    }, [sortedTasks, todoContext?.search!]);
 
-    return foundTasks || [];
+        return sortedTasks;
+    }, [sortedTasks, todoContext?.search]);
+
+    return foundTasks;
 }

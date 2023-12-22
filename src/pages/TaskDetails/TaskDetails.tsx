@@ -12,6 +12,7 @@ import { DeleteBtn } from 'components/DeleteBtn/DeleteBtn';
 import { Input } from 'components/formComponents/Input';
 import { BtnCircle } from 'components/BtnCircle/BtnCircle';
 import { Check } from 'components/assets/svg/Check';
+import { ITodo } from 'ToDoProvider/ToDoProvider';
 
 import classes from './TaskDetails.module.sass';
 
@@ -30,27 +31,50 @@ export const TaskDetails = () => {
             navigate('/')
         }
     };
-
-    const handleCommpleted = (id: string) => {
-        if (!!todo?.checkList?.length) {
-            const updatedCheckList = todo.checkList.map((checkItem) => {
-                if (checkItem.id === id) {
+    const handleCommpleted = (idSubtask: string) => {
+        const updateTask = todoContext?.todos.map((task) => {
+            return prevTodos.map((task) => {
+                if (task.id === id) {
                     return {
-                        ...checkItem,
-                        completed: !checkItem.completed
+                        ...task,
+                        checkList: task.checkList.map((checkItem) => {
+                            if (checkItem.id === idSubtask) {
+                                return {
+                                    ...checkItem,
+                                    completed: !checkItem.completed
+                                }
+                            }
+                            return checkItem;
+                        })
                     }
                 }
-                return checkItem;
-            });
-            const updatedTodo = {
-                ...todo,
-                checkList: updatedCheckList
-                
-            };
-            console.log(updatedCheckList)
-            todoContext?.saveTodo(updatedTodo)
-        }
+
+                return task;
+)
+        })
+        
     }
+
+    
+    // const handleCommpleted = (id: string) => {
+    //     if (!!todo?.checkList?.length) {
+    //         const updatedCheckList = todo.checkList.map((checkItem) => {
+    //             if (checkItem.id === id) {
+    //                 return {
+    //                     ...checkItem,
+    //                     completed: !checkItem.completed
+    //                 }
+    //             }
+    //             return checkItem;
+    //         });
+    //         const updatedTodo = {
+    //             ...todo,
+    //             checkList: updatedCheckList
+    //         };
+    //         console.log(updatedCheckList)
+    //         todoContext?.saveTodo(updatedTodo)
+    //     }
+    // }
 
     return (
         <section className={classes.main}>

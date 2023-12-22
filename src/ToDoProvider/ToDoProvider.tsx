@@ -52,10 +52,11 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
         ]);
     };
 
-    
     const updateTodo = (todos: ITodo[]) => {
         setTodos(todos)
     };
+
+    
 
     const handleToggle = (id: string) => {
         setTodos((prevTodos) => {

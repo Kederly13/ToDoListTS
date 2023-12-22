@@ -11,6 +11,7 @@ import { TodoBtn } from 'components/TodoBtn';
 import { DeleteBtn } from 'components/DeleteBtn/DeleteBtn';
 import { Input } from 'components/formComponents/Input';
 import { BtnCircle } from 'components/BtnCircle/BtnCircle';
+import { Check } from 'components/assets/svg/Check';
 
 import classes from './TaskDetails.module.sass';
 
@@ -31,17 +32,24 @@ export const TaskDetails = () => {
     };
 
     const handleCommpleted = (id: string) => {
-        setTodos((prevTodos) => {
-            return prevTodos.map((todo) => {
-                if (todo.id === id) {
+        if (!!todo?.checkList?.length) {
+            const updatedCheckList = todo.checkList.map((checkItem) => {
+                if (checkItem.id === id) {
                     return {
-                        ...todo,
-                        isClicked: !todo.isClicked
-                    };
+                        ...checkItem,
+                        completed: !checkItem.completed
+                    }
                 }
-                return todo
+                return checkItem;
             });
-        });
+            const updatedTodo = {
+                ...todo,
+                checkList: updatedCheckList
+                
+            };
+            console.log(updatedCheckList)
+            todoContext?.saveTodo(updatedTodo)
+        }
     }
 
     return (
@@ -72,7 +80,7 @@ export const TaskDetails = () => {
                 <form>
                     <h3></h3>
                     <div>
-                        {todo && !!todo.checkList?.length && todo.checkList.map(({ id, value }) => (
+                        {todo && !!todo.checkList?.length && todo.checkList.map(({ id, value, completed }) => (
                             <Input
                                 key={id}
                                 id={id}
@@ -80,15 +88,15 @@ export const TaskDetails = () => {
                                 readOnly
                                 buttonComponent={
                                     <BtnCircle
-                                        icon={null}
-                                        onClick={handleCompleted} 
+                                        icon={<Check />}
+                                        onClick={() => handleCommpleted(id)}
+                                        style={completed ? 'darkBlue' : 'lightBlue'}                      
                                     />
                                 }
                             />
                         ))}
                     </div>
                 </form>
-                
                 <DeleteBtn
                     handleDelete={handleDelete} 
                 />

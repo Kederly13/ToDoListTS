@@ -17,7 +17,7 @@ import classes from './main.module.sass';
 export const Main = () => {
     const todoContext = useContext(TodoContext);
     
-
+    console.log(todoContext?.todos)
     const navigate = useNavigate()
 
     const filteredTasks = useFilterTasks();

@@ -6,13 +6,13 @@ import classes from './BtnCircle.module.sass';
 interface IBtnCircleProps {
     className?: string;
     icon: ReactNode;
-    onClick: () => void;
-    style?: 'green' | 'blue'
+    onClick?: () => void;
+    style?: 'lightBlue' | 'darkBlue' | 'white'
 };
 
-export const BtnCircle: React.FC <IBtnCircleProps> = ({ className, icon, onClick, style = 'blue' }) => 
+export const BtnCircle: React.FC <IBtnCircleProps> = ({ className, icon, onClick, style = 'lightBlue' }) => 
     <button type='button' onClick={onClick} className={classNames(classes.checkListBtn, className, {
         [classes[style]]: style
     })}>
-        <span className={classes.checkListBtn__sign}>{icon}</span>
+        {icon}
     </button>

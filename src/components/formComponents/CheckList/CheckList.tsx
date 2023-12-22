@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ICheckItem } from 'components/TaskForm/TaskForm';
-import { CheckListBtn } from './components/CheckListBtn';
 import { Input } from '../Input/Input';
+import { BtnCircle } from 'components/BtnCircle';
 
 import classes from './CheckList.module.sass';
 
@@ -36,7 +36,7 @@ export const CheckList: React.FC<ICheckListProps> = ({ addCheckItem, removeCheck
                 value={newSubtask}
                 onChange={(e) => setNewSubtask(e.target.value)}
                 buttonComponent={
-                    <CheckListBtn
+                    <BtnCircle
                         onClick={() => handleNewCheckItem(newSubtask)}
                         icon='+'
                     />
@@ -50,9 +50,10 @@ export const CheckList: React.FC<ICheckListProps> = ({ addCheckItem, removeCheck
                         value={value}
                         onChange={handleInputChange}
                         buttonComponent={
-                            <CheckListBtn
+                            <BtnCircle
                                 onClick={() => removeCheckItem(id)}
                                 icon='-'
+                                style='lightBlue'
                             />
                         } 
                     />

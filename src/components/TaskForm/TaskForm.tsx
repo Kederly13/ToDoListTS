@@ -129,6 +129,7 @@ export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
                 completed: false
             }
         ]));
+        console.log(checklist)
     };
 
     const handleTags = (value: string) => {

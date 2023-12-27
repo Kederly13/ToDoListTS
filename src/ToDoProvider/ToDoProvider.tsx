@@ -57,6 +57,8 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
         localStorage.setItem('tasks', JSON.stringify(todos));
     };
 
+    
+
     const handleToggle = (id: string) => {
         setTodos((prevTodos) => {
             return prevTodos.map((todo) => {

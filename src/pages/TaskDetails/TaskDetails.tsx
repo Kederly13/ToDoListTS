@@ -12,6 +12,7 @@ import { DeleteBtn } from 'components/DeleteBtn/DeleteBtn';
 import { Input } from 'components/formComponents/Input';
 import { BtnCircle } from 'components/BtnCircle/BtnCircle';
 import { Check } from 'components/assets/svg/Check';
+import { ITodo } from 'ToDoProvider/ToDoProvider';
 
 import classes from './TaskDetails.module.sass';
 

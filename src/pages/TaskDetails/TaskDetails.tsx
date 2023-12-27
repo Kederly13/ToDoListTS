@@ -31,26 +31,28 @@ export const TaskDetails = () => {
         }
     };
 
-    const handleCommpleted = (id: string) => {
-        if (!!todo?.checkList?.length) {
-            const updatedCheckList = todo.checkList.map((checkItem) => {
-                if (checkItem.id === id) {
-                    return {
-                        ...checkItem,
-                        completed: !checkItem.completed
-                    }
+    const handleCommpleted = (idSubtask: string) => {
+        const updatedTasks = !!todoContext?.todos?.length ? todoContext.todos.map((task) => {
+            if (task.id === id) {
+                return {
+                    ...task,
+                    checkList: !!task?.checkList?.length ? task.checkList.map((checkItem) => {
+                        if (checkItem.id === idSubtask) {
+                            return {
+                                ...checkItem,
+                                completed: !checkItem.completed
+                            }
+                        }
+
+                        return checkItem;
+                    }) : []
                 }
-                return checkItem;
-            });
-            const updatedTodo = {
-                ...todo,
-                checkList: updatedCheckList
-                
-            };
-            console.log(updatedCheckList)
-            todoContext?.saveTodo(updatedTodo)
-        }
-    }
+            }
+
+            return task;
+        }) : []
+        todoContext?.updateTodo(updatedTasks)
+    };
 
     return (
         <section className={classes.main}>

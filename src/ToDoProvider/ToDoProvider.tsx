@@ -47,14 +47,14 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
     const [search, setSearch] = useState<string>('');
 
     const saveTodo = (todo: ITodo) => {
-        setTodos((prevTodos) => [
-            ...prevTodos, todo
-        ]);
+        const addTasks = [...todos, todo];
+        setTodos(addTasks);
+        localStorage.setItem('tasks', JSON.stringify(addTasks));
     };
-
     
     const updateTodo = (todos: ITodo[]) => {
-        setTodos(todos)
+        setTodos(todos);
+        localStorage.setItem('tasks', JSON.stringify(todos));
     };
 
     const handleToggle = (id: string) => {

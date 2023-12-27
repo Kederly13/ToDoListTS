@@ -66,9 +66,6 @@ export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
             });
         }
         todoContext?.updateTodo(updatedTodos);
-
-        localStorage.setItem('tasks', JSON.stringify(updatedTodos));
-
         navigate('/');    
     };
 
@@ -91,7 +88,7 @@ export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
 
         localTasks.push(newTodo);
 
-        localStorage.setItem('tasks', JSON.stringify(localTasks));
+        // localStorage.setItem('tasks', JSON.stringify(localTasks));
         setTaskName('');
         setDueDate(null);
         setDueTime('');

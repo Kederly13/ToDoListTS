@@ -55,6 +55,12 @@ export const TaskDetails = () => {
         todoContext?.updateTodo(updatedTasks)
     };
 
+    let completionPercentage = 0;
+    if (todo && todo.checkList && todo.checkList.length > 0) {
+        const completedCount = todo.checkList.filter(item => item.completed).length;
+        completionPercentage = Math.round((completedCount / todo.checkList.length) * 100);
+    };
+
     return (
         <section className={classes.main}>
             <div className={classes.container}>
@@ -75,10 +81,12 @@ export const TaskDetails = () => {
                             priority={todo.priority}
                             complexity={todo.complexity}
                             isClicked={todo.isClicked}
+                            progressValue={completionPercentage}
                         />
                     ) : (
                         <p>No task found</p>
                     )}
+                    {/* <progress value={completionPercentage} max="100"></progress> */}
                 </div>
                 <form>
                     <h3></h3>

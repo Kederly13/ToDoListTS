@@ -15,7 +15,8 @@ export interface ITodo {
     complexity?: number;
     tags?: string[];
     checkList?: ICheckItem[];
-    isClicked: boolean  
+    isClicked: boolean;
+    progressValue?: number  
 };
 
 export interface ISort {

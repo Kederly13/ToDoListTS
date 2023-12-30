@@ -11,7 +11,7 @@ import { Calendar } from 'components/assets/svg/Calendar';
 import classes from './Todo.module.sass';
 import { useNavigate } from 'react-router-dom';
 
-export const Todo = ({ id, title, dueDateTime, priority, complexity, tags, isClicked } : ITodo) => {
+export const Todo = ({ id, title, dueDateTime, priority, complexity, tags, isClicked, progressValue } : ITodo) => {
     const formattedDueDate = dueDateTime ? new Date(dueDateTime).toLocaleDateString() : 'No due date';
     const formattedDueTime = dueDateTime ? new Date(dueDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'No due time';
 
@@ -54,6 +54,11 @@ export const Todo = ({ id, title, dueDateTime, priority, complexity, tags, isCli
                     tags={tags}
                 />
             }
+            <div className={classes.todo__progress}>
+                <div className={classes.todo__progressWrapper }></div>
+                <progress value={progressValue} max="100"></progress>
+                <span className={classes.progressLabel}>{progressValue}% Completed</span>
+            </div>
         </div>
     );
 };

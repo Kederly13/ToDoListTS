@@ -32,7 +32,7 @@ export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
     const [dueTime, setDueTime] = useState<string>(
         task?.dueDateTime ? new Date(task?.dueDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit'}) :
         '')
-    const [taskExists, setTaskExists] = useState<boolean>(false);
+
     const [priority, setPriority] = useState<number>(task?.priority || 5);
     const [complexity, setComplexity] = useState<number>(task?.complexity || 5);
     const [checklist, setChecklist] = useState<ICheckItem[]>((!!task?.checkList?.length && task.checkList) || []);
@@ -80,15 +80,16 @@ export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
             complexity: complexity,
             checkList: checklist,
             tags: tags,
-            isClicked: false
+            isClicked: false,
+            progressValue: 0
         };
+
         todoContext?.saveTodo(newTodo);
 
         const localTasks: ITodo[] = JSON.parse(localStorage.getItem('tasks')!) || [];
 
         localTasks.push(newTodo);
 
-        // localStorage.setItem('tasks', JSON.stringify(localTasks));
         setTaskName('');
         setDueDate(null);
         setDueTime('');
@@ -126,7 +127,6 @@ export const TaskForm: FC<INewTaskFormProps> = ({ task }) => {
                 completed: false
             }
         ]));
-        console.log(checklist)
     };
 
     const handleTags = (value: string) => {

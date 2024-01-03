@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 
-import { SearchForm } from './components/SearchForm';
-import { Filters } from './components/Filters';
-import { NewTaskBtn } from './components/NewTaskBtn';
+import { SearchForm } from 'components/SearchForm';
+import { Filters } from 'components/Filters';
+import { NewTaskBtn } from 'components/NewTaskBtn';
 import { Todo } from 'components/Todo';
-import { useContext } from 'react';
 import { SORT } from 'constants/sort';
 
 import { TodoContext } from 'ToDoProvider';
@@ -13,11 +12,9 @@ import { useFilterTasks } from 'hooks/useFilter';
 
 import classes from './main.module.sass';
 
-
 export const Main = () => {
     const todoContext = useContext(TodoContext);
-    
-    console.log(todoContext?.todos)
+
     const navigate = useNavigate()
 
     const filteredTasks = useFilterTasks();
@@ -47,6 +44,7 @@ export const Main = () => {
                                 checkList={todo.checkList}
                                 tags={todo.tags}
                                 isClicked={todo.isClicked}
+                                progressValue={todo.progressValue}
                             />
                         ))}
                     </div> 

@@ -56,14 +56,13 @@ export const ToDoProvider: React.FC<TodoProviderParams> = ({ children }) => {
     const updateTodo = (todos: ITodo[]) => {
         setTodos(todos);
         localStorage.setItem('tasks', JSON.stringify(todos));
-    };
-
-    
+    }; 
 
     const handleToggle = (id: string) => {
         setTodos((prevTodos) => {
             return prevTodos.map((todo) => {
                 if (todo.id === id) {
+                    console.log(todo);
                     return {
                         ...todo,
                         isClicked: !todo.isClicked

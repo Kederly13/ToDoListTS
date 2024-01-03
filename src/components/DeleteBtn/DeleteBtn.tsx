@@ -1,4 +1,4 @@
-import { Trash } from 'components/assets/svg/Delete';
+import { Trash } from 'components/icons/Trash/Trash';
 
 import classes from './DeleteBtn.module.sass';
 

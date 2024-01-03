@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Edit } from 'components/assets/svg/Edit';
+import { Edit } from 'components/icons/Edit/Edit';
 
 export const EditBtn = ({ id }: {id: string}) => {
     const navigate = useNavigate();
